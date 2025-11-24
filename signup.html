@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - CodeBridge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#0d1117',
+                            card: '#161b22',
+                            border: '#30363d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #0d1117;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #e5e5e5;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-field {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: white;
+            box-shadow: 0 0 0 1px white;
+        }
+
+        .social-btn {
+            border: 1px solid #30363d;
+            transition: all 0.2s ease;
+        }
+
+        .social-btn:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .error-message {
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .strength-bar {
+            height: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0d1117] text-white min-h-screen flex items-center justify-center px-4 py-8">
+
+    <!-- Signup Container -->
+    <div class="w-full max-w-md">
+
+        <!-- Title -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">Create your account</h1>
+            <p class="text-gray-400 text-sm">Start building with CodeBridge today</p>
+        </div>
+
+        <!-- Signup Card -->
+        <div class="bg-[#161b22] rounded-xl border border-[#30363d] p-8">
+
+            <!-- Error Message -->
+            <div id="error-message"
+                class="error-message bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg mb-6 text-sm">
+                <span id="error-text"></span>
+            </div>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="space-y-5">
+
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">
+                        Full Name
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <input type="text" id="name" name="name" required
+                            class="input-field w-full pl-10 pr-4 py-3 rounded-lg text-white text-sm"
+                            placeholder="John Doe">
+                    </div>
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
+                        Email address
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <input type="email" id="email" name="email" required
+                            class="input-field w-full pl-10 pr-4 py-3 rounded-lg text-white text-sm"
+                            placeholder="you@example.com">
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-300 mb-2">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                            </svg>
+                        </div>
+                        <input type="password" id="password" name="password" required
+                            class="input-field w-full pl-10 pr-12 py-3 rounded-lg text-white text-sm"
+                            placeholder="Create a strong password">
+
+                        <!-- Password Toggle Button -->
+                        <button type="button" id="toggle-password"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white transition">
+                            <!-- Eye Icon (Show) -->
+                            <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <!-- Eye Slash Icon (Hide) -->
+                            <svg id="eye-slash-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Password Strength Indicator -->
+                    <div class="mt-2">
+                        <div class="flex items-center justify-between mb-1">
+                            <span id="strength-text" class="text-xs text-gray-400"></span>
+                        </div>
+                        <div class="w-full bg-[#30363d] rounded-full h-1 overflow-hidden">
+                            <div id="strength-bar" class="strength-bar bg-gray-400 w-0"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div>
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-300 mb-2">
+                        Confirm Password
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <input type="password" id="confirm-password" name="confirm-password" required
+                            class="input-field w-full pl-10 pr-12 py-3 rounded-lg text-white text-sm"
+                            placeholder="Re-enter your password">
+
+                        <!-- Confirm Password Toggle Button -->
+                        <button type="button" id="toggle-confirm-password"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white transition">
+                            <!-- Eye Icon (Show) -->
+                            <svg id="eye-icon-confirm" class="w-5 h-5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <!-- Eye Slash Icon (Hide) -->
+                            <svg id="eye-slash-icon-confirm" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p id="password-match" class="text-xs mt-1 hidden"></p>
+                </div>
+
+                <!-- Terms & Conditions -->
+                <div>
+                    <label class="flex items-start space-x-2 cursor-pointer">
+                        <input type="checkbox" id="terms" name="terms" required
+                            class="w-4 h-4 mt-0.5 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                        <span class="text-sm text-gray-400">
+                            I agree to the
+                            <a href="#" class="text-white hover:underline">Terms of Service</a>
+                            and
+                            <a href="#" class="text-white hover:underline">Privacy Policy</a>
+                        </span>
+                    </label>
+                </div>
+
+                <!-- Signup Button -->
+                <button type="submit" id="signup-btn" class="btn-primary w-full py-3 rounded-lg font-semibold text-sm">
+                    Create Account
+                </button>
+
+            </form>
+
+            <!-- Divider -->
+            <div class="relative my-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-[#30363d]"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-4 bg-[#161b22] text-gray-400">Or sign up with</span>
+                </div>
+            </div>
+
+            <!-- Social Signup Buttons -->
+            <div class="grid grid-cols-3 gap-3">
+
+                <!-- Google -->
+                <button type="button" class="social-btn p-3 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24">
+                        <path fill="#EA4335"
+                            d="M5.26620003,9.76452941 C6.19878754,6.93863203 8.85444915,4.90909091 12,4.90909091 C13.6909091,4.90909091 15.2181818,5.50909091 16.4181818,6.49090909 L19.9090909,3 C17.7818182,1.14545455 15.0545455,0 12,0 C7.27006974,0 3.1977497,2.69829785 1.23999023,6.65002441 L5.26620003,9.76452941 Z" />
+                        <path fill="#34A853"
+                            d="M16.0407269,18.0125889 C14.9509167,18.7163016 13.5660892,19.0909091 12,19.0909091 C8.86648613,19.0909091 6.21911939,17.076871 5.27698177,14.2678769 L1.23746264,17.3349879 C3.19279051,21.2936293 7.26500293,24 12,24 C14.9328362,24 17.7353462,22.9573905 19.834192,20.9995801 L16.0407269,18.0125889 Z" />
+                        <path fill="#4A90E2"
+                            d="M19.834192,20.9995801 C22.0291676,18.9520994 23.4545455,15.903663 23.4545455,12 C23.4545455,11.2909091 23.3454545,10.5272727 23.1818182,9.81818182 L12,9.81818182 L12,14.4545455 L18.4363636,14.4545455 C18.1187732,16.013626 17.2662994,17.2212117 16.0407269,18.0125889 L19.834192,20.9995801 Z" />
+                        <path fill="#FBBC05"
+                            d="M5.27698177,14.2678769 C5.03832634,13.556323 4.90909091,12.7937589 4.90909091,12 C4.90909091,11.2182781 5.03443647,10.4668121 5.26620003,9.76452941 L1.23999023,6.65002441 C0.43658717,8.26043162 0,10.0753848 0,12 C0,13.9195484 0.444780743,15.7301709 1.23746264,17.3349879 L5.27698177,14.2678769 Z" />
+                    </svg>
+                </button>
+
+                <!-- GitHub -->
+                <button type="button" class="social-btn p-3 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                </button>
+
+                <!-- LinkedIn -->
+                <button type="button" class="social-btn p-3 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-[#0077B5]" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                    </svg>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center mt-6">
+            <p class="text-sm text-gray-400">
+                Already have an account?
+                <a href="login.html" class="text-white hover:underline font-medium">
+                    Sign in
+                </a>
+            </p>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="text-center mt-4">
+            <a href="index.html" class="text-sm text-gray-400 hover:text-white transition">
+                ← Back to home
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        // Password Toggle
+        const passwordInput = document.getElementById('password');
+        const togglePasswordBtn = document.getElementById('toggle-password');
+        const eyeIcon = document.getElementById('eye-icon');
+        const eyeSlashIcon = document.getElementById('eye-slash-icon');
+
+        togglePasswordBtn.addEventListener('click', () => {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            eyeIcon.classList.toggle('hidden');
+            eyeSlashIcon.classList.toggle('hidden');
+        });
+
+        // Confirm Password Toggle
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const toggleConfirmPasswordBtn = document.getElementById('toggle-confirm-password');
+        const eyeIconConfirm = document.getElementById('eye-icon-confirm');
+        const eyeSlashIconConfirm = document.getElementById('eye-slash-icon-confirm');
+
+        toggleConfirmPasswordBtn.addEventListener('click', () => {
+            const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+            confirmPasswordInput.type = type;
+            eyeIconConfirm.classList.toggle('hidden');
+            eyeSlashIconConfirm.classList.toggle('hidden');
+        });
+
+        // Password Strength Checker
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthText = document.getElementById('strength-text');
+
+        passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value;
+            let strength = 0;
+            let strengthLabel = '';
+            let strengthColor = '';
+
+            if (password.length === 0) {
+                strengthBar.style.width = '0%';
+                strengthText.textContent = '';
+                return;
+            }
+
+            // Check password criteria
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+
+            // Set strength label and color
+            switch (strength) {
+                case 1:
+                    strengthLabel = 'Weak';
+                    strengthColor = '#ef4444';
+                    strengthBar.style.width = '25%';
+                    break;
+                case 2:
+                    strengthLabel = 'Fair';
+                    strengthColor = '#f59e0b';
+                    strengthBar.style.width = '50%';
+                    break;
+                case 3:
+                    strengthLabel = 'Good';
+                    strengthColor = '#3b82f6';
+                    strengthBar.style.width = '75%';
+                    break;
+                case 4:
+                    strengthLabel = 'Strong';
+                    strengthColor = '#10b981';
+                    strengthBar.style.width = '100%';
+                    break;
+                default:
+                    strengthLabel = 'Too short';
+                    strengthColor = '#6b7280';
+                    strengthBar.style.width = '10%';
+            }
+
+            strengthBar.style.backgroundColor = strengthColor;
+            strengthText.textContent = strengthLabel;
+            strengthText.style.color = strengthColor;
+        });
+
+        // Password Match Checker
+        const passwordMatchText = document.getElementById('password-match');
+
+        function checkPasswordMatch() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (confirmPassword.length === 0) {
+                passwordMatchText.classList.add('hidden');
+                return;
+            }
+
+            if (password === confirmPassword) {
+                passwordMatchText.textContent = '✓ Passwords match';
+                passwordMatchText.className = 'text-xs mt-1 text-green-400';
+            } else {
+                passwordMatchText.textContent = '✗ Passwords do not match';
+                passwordMatchText.className = 'text-xs mt-1 text-red-400';
+            }
+        }
+
+        passwordInput.addEventListener('input', checkPasswordMatch);
+        confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+
+        // Form Submission
+        const signupForm = document.getElementById('signup-form');
+        const signupBtn = document.getElementById('signup-btn');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            const terms = document.getElementById('terms').checked;
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                errorText.textContent = 'Passwords do not match';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            // Validate terms
+            if (!terms) {
+                errorText.textContent = 'Please accept the Terms of Service and Privacy Policy';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            // Hide previous errors
+            errorMessage.classList.remove('show');
+
+            // Disable button and show loading
+            signupBtn.disabled = true;
+            signupBtn.textContent = 'Creating account...';
+
+            try {
+                // API call (replace with your actual API endpoint)
+                const response = await fetch('/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store JWT token
+                    localStorage.setItem('token', data.token);
+
+                    // Store user info
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                } else {
+                    // Show error message
+                    errorText.textContent = data.message || 'Failed to create account';
+                    errorMessage.classList.add('show');
+                }
+            } catch (error) {
+                // Show error message
+                errorText.textContent = 'An error occurred. Please try again.';
+                errorMessage.classList.add('show');
+            } finally {
+                // Re-enable button
+                signupBtn.disabled = false;
+                signupBtn.textContent = 'Create Account';
+            }
+        });
+
+        // Social Signup Handlers
+        const socialButtons = document.querySelectorAll('.social-btn');
+        socialButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Implement social signup logic
+                alert('Social signup coming soon!');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

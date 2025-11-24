@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - CodeBridge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#0d1117',
+                            card: '#161b22',
+                            border: '#30363d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #0d1117;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #e5e5e5;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .input-field {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: white;
+            box-shadow: 0 0 0 1px white;
+        }
+
+        .error-message,
+        .success-message {
+            display: none;
+        }
+
+        .error-message.show,
+        .success-message.show {
+            display: block;
+        }
+
+        .strength-bar {
+            height: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0d1117] text-white min-h-screen flex items-center justify-center px-4 py-8">
+
+    <!-- Reset Password Container -->
+    <div class="w-full max-w-md">
+
+        <!-- Title -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">Set new password</h1>
+            <p class="text-gray-400 text-sm">Your new password must be different from previous passwords</p>
+        </div>
+
+        <!-- Reset Password Card -->
+        <div class="bg-[#161b22] rounded-xl border border-[#30363d] p-8">
+
+            <!-- Success Message -->
+            <div id="success-message"
+                class="success-message bg-green-500/10 border border-green-500/20 text-green-400 px-4 py-3 rounded-lg mb-6 text-sm">
+                <div class="flex items-start">
+                    <svg class="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="success-text"></span>
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message"
+                class="error-message bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg mb-6 text-sm">
+                <div class="flex items-start">
+                    <svg class="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span id="error-text"></span>
+                </div>
+            </div>
+
+            <!-- Reset Password Form -->
+            <form id="reset-form" class="space-y-5">
+
+                <!-- New Password Field -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-300 mb-2">
+                        New Password
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                            </svg>
+                        </div>
+                        <input type="password" id="password" name="password" required
+                            class="input-field w-full pl-10 pr-12 py-3 rounded-lg text-white text-sm"
+                            placeholder="Create a strong password">
+
+                        <!-- Password Toggle Button -->
+                        <button type="button" id="toggle-password"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white transition">
+                            <!-- Eye Icon (Show) -->
+                            <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <!-- Eye Slash Icon (Hide) -->
+                            <svg id="eye-slash-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Password Strength Indicator -->
+                    <div class="mt-2">
+                        <div class="flex items-center justify-between mb-1">
+                            <span id="strength-text" class="text-xs text-gray-400"></span>
+                        </div>
+                        <div class="w-full bg-[#30363d] rounded-full h-1 overflow-hidden">
+                            <div id="strength-bar" class="strength-bar bg-gray-400 w-0"></div>
+                        </div>
+                    </div>
+
+                    <!-- Password Requirements -->
+                    <div class="mt-3 space-y-1">
+                        <p class="text-xs text-gray-400">Password must contain:</p>
+                        <ul class="text-xs text-gray-400 space-y-1 ml-4">
+                            <li id="req-length" class="flex items-center">
+                                <span class="mr-2">○</span> At least 8 characters
+                            </li>
+                            <li id="req-case" class="flex items-center">
+                                <span class="mr-2">○</span> Upper and lowercase letters
+                            </li>
+                            <li id="req-number" class="flex items-center">
+                                <span class="mr-2">○</span> At least one number
+                            </li>
+                            <li id="req-special" class="flex items-center">
+                                <span class="mr-2">○</span> At least one special character
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div>
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-300 mb-2">
+                        Confirm New Password
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                        </div>
+                        <input type="password" id="confirm-password" name="confirm-password" required
+                            class="input-field w-full pl-10 pr-12 py-3 rounded-lg text-white text-sm"
+                            placeholder="Re-enter your password">
+
+                        <!-- Confirm Password Toggle Button -->
+                        <button type="button" id="toggle-confirm-password"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white transition">
+                            <!-- Eye Icon (Show) -->
+                            <svg id="eye-icon-confirm" class="w-5 h-5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <!-- Eye Slash Icon (Hide) -->
+                            <svg id="eye-slash-icon-confirm" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p id="password-match" class="text-xs mt-1 hidden"></p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submit-btn" class="btn-primary w-full py-3 rounded-lg font-semibold text-sm">
+                    Reset Password
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- Back to Login -->
+        <div class="text-center mt-6">
+            <a href="login.html" class="text-sm text-gray-400 hover:text-white transition inline-flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to login
+            </a>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="text-center mt-4">
+            <a href="index.html" class="text-sm text-gray-400 hover:text-white transition">
+                ← Back to home
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        // Get reset token from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const resetToken = urlParams.get('token');
+
+        // Password Toggle
+        const passwordInput = document.getElementById('password');
+        const togglePasswordBtn = document.getElementById('toggle-password');
+        const eyeIcon = document.getElementById('eye-icon');
+        const eyeSlashIcon = document.getElementById('eye-slash-icon');
+
+        togglePasswordBtn.addEventListener('click', () => {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            eyeIcon.classList.toggle('hidden');
+            eyeSlashIcon.classList.toggle('hidden');
+        });
+
+        // Confirm Password Toggle
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const toggleConfirmPasswordBtn = document.getElementById('toggle-confirm-password');
+        const eyeIconConfirm = document.getElementById('eye-icon-confirm');
+        const eyeSlashIconConfirm = document.getElementById('eye-slash-icon-confirm');
+
+        toggleConfirmPasswordBtn.addEventListener('click', () => {
+            const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+            confirmPasswordInput.type = type;
+            eyeIconConfirm.classList.toggle('hidden');
+            eyeSlashIconConfirm.classList.toggle('hidden');
+        });
+
+        // Password Strength Checker
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthText = document.getElementById('strength-text');
+        const reqLength = document.getElementById('req-length');
+        const reqCase = document.getElementById('req-case');
+        const reqNumber = document.getElementById('req-number');
+        const reqSpecial = document.getElementById('req-special');
+
+        function updateRequirement(element, met) {
+            if (met) {
+                element.classList.add('text-green-400');
+                element.querySelector('span').textContent = '✓';
+            } else {
+                element.classList.remove('text-green-400');
+                element.querySelector('span').textContent = '○';
+            }
+        }
+
+        passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value;
+            let strength = 0;
+            let strengthLabel = '';
+            let strengthColor = '';
+
+            if (password.length === 0) {
+                strengthBar.style.width = '0%';
+                strengthText.textContent = '';
+                updateRequirement(reqLength, false);
+                updateRequirement(reqCase, false);
+                updateRequirement(reqNumber, false);
+                updateRequirement(reqSpecial, false);
+                return;
+            }
+
+            // Check password criteria
+            const hasLength = password.length >= 8;
+            const hasCase = password.match(/[a-z]/) && password.match(/[A-Z]/);
+            const hasNumber = password.match(/[0-9]/);
+            const hasSpecial = password.match(/[^a-zA-Z0-9]/);
+
+            updateRequirement(reqLength, hasLength);
+            updateRequirement(reqCase, hasCase);
+            updateRequirement(reqNumber, hasNumber);
+            updateRequirement(reqSpecial, hasSpecial);
+
+            if (hasLength) strength++;
+            if (hasCase) strength++;
+            if (hasNumber) strength++;
+            if (hasSpecial) strength++;
+
+            // Set strength label and color
+            switch (strength) {
+                case 1:
+                    strengthLabel = 'Weak';
+                    strengthColor = '#ef4444';
+                    strengthBar.style.width = '25%';
+                    break;
+                case 2:
+                    strengthLabel = 'Fair';
+                    strengthColor = '#f59e0b';
+                    strengthBar.style.width = '50%';
+                    break;
+                case 3:
+                    strengthLabel = 'Good';
+                    strengthColor = '#3b82f6';
+                    strengthBar.style.width = '75%';
+                    break;
+                case 4:
+                    strengthLabel = 'Strong';
+                    strengthColor = '#10b981';
+                    strengthBar.style.width = '100%';
+                    break;
+                default:
+                    strengthLabel = 'Too short';
+                    strengthColor = '#6b7280';
+                    strengthBar.style.width = '10%';
+            }
+
+            strengthBar.style.backgroundColor = strengthColor;
+            strengthText.textContent = strengthLabel;
+            strengthText.style.color = strengthColor;
+        });
+
+        // Password Match Checker
+        const passwordMatchText = document.getElementById('password-match');
+
+        function checkPasswordMatch() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (confirmPassword.length === 0) {
+                passwordMatchText.classList.add('hidden');
+                return;
+            }
+
+            if (password === confirmPassword) {
+                passwordMatchText.textContent = '✓ Passwords match';
+                passwordMatchText.className = 'text-xs mt-1 text-green-400';
+            } else {
+                passwordMatchText.textContent = '✗ Passwords do not match';
+                passwordMatchText.className = 'text-xs mt-1 text-red-400';
+            }
+        }
+
+        passwordInput.addEventListener('input', checkPasswordMatch);
+        confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+
+        // Form Submission
+        const resetForm = document.getElementById('reset-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+        const successMessage = document.getElementById('success-message');
+        const successText = document.getElementById('success-text');
+
+        resetForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                errorText.textContent = 'Passwords do not match';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            // Validate password strength
+            if (password.length < 8) {
+                errorText.textContent = 'Password must be at least 8 characters long';
+                errorMessage.classList.add('show');
+                return;
+            }
+
+            // Hide previous messages
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Resetting...';
+
+            try {
+                // API call (replace with your actual API endpoint)
+                const response = await fetch('/auth/reset-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token: resetToken, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Show success message
+                    successText.textContent = 'Password reset successfully! Redirecting to login...';
+                    successMessage.classList.add('show');
+
+                    // Redirect to login after a delay
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    // Show error message
+                    errorText.textContent = data.message || 'Failed to reset password. Please try again.';
+                    errorMessage.classList.add('show');
+                }
+            } catch (error) {
+                // Show error message
+                errorText.textContent = 'An error occurred. Please try again.';
+                errorMessage.classList.add('show');
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Reset Password';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
