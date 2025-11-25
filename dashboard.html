@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - CodeBridge</title>
+    <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -277,8 +278,8 @@
                     <div class="relative">
 
                         <!-- Textarea (Reduced Height) -->
-                        <textarea id="prompt-input" rows="2" placeholder="Describe the code you want to generate..."
-                            class="w-full px-12 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-white text-sm resize-none focus:outline-none focus:border-white"></textarea>
+                        <textarea id="prompt-input" rows="1" placeholder="Describe the code you want to generate..."
+                            class="w-full px-12 py-4 bg-[#161b22] border border-[#30363d] rounded-lg text-white text-sm resize-none focus:outline-none focus:border-white"></textarea>
                         <!-- Attach Icon (Left, Centered) -->
                         <label for="file-input"
                             class="absolute left-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-white transition">
@@ -294,7 +295,7 @@
                         <!-- Generate Button (Right, Centered) -->
                         <button type="submit" id="generate-btn"
                             class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 bg-white text-[#0d1117] rounded-lg hover:bg-gray-200 transition disabled:opacity-50">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 10l7-7m0 0l7 7m-7-7v18" />
                             </svg>
