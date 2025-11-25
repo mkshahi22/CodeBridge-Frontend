@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeBridge - From Prompt to Production</title>
+    <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -106,10 +107,16 @@
                 <div class="flex flex-col space-y-3">
                     <a href="#features" class="text-gray-300 hover:text-white transition text-sm">Features</a>
                     <a href="#how-it-works" class="text-gray-300 hover:text-white transition text-sm">How It Works</a>
-                    <a href="login.html" class="text-gray-300 hover:text-white transition text-sm">Login</a>
-                    <a href="signup.html" class="btn-primary px-4 py-2 rounded-lg font-medium text-sm text-center">
+                    <a href="login.html"
+                        class="text-gray-300 hover:text-white transition text-sm border border-white px-4 py-2 rounded-md w-full text-center block">
+                        Login
+                    </a>
+
+                    <a href="signup.html"
+                        class="btn-primary px-4 py-2 rounded-lg font-medium text-sm text-center w-full block mt-2">
                         Get Started
                     </a>
+
                 </div>
             </div>
         </nav>
@@ -227,48 +234,56 @@
 
     <!-- How It Works Section -->
     <section id="how-it-works" class="py-20 px-4 bg-[#161b22]/50">
-        <div class="container mx-auto max-w-5xl">
-            <h2 class="text-4xl font-bold text-center mb-16 text-white">How It Works</h2>
+        <div class="container mx-auto max-w-4xl">
+            <h2 class="text-4xl font-bold text-center mb-16 text-white">
+                How It Works
+            </h2>
 
-            <div class="space-y-12">
-                <!-- Step 1 -->
-                <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div class="space-y-14">
+
+                <!-- Step Template -->
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left">
                     <div
-                        class="flex-shrink-0 w-14 h-14 bg-white text-[#0d1117] rounded-full flex items-center justify-center text-xl font-bold">
+                        class="flex-shrink-0 w-16 h-16 bg-white text-[#0d1117] rounded-full flex items-center justify-center text-2xl font-bold shadow">
                         1
                     </div>
                     <div class="flex-1">
                         <h3 class="text-2xl font-semibold mb-2 text-white">Describe Your Code</h3>
-                        <p class="text-gray-400 leading-relaxed">Simply describe what you want to build in natural
-                            language. Upload files for additional context.</p>
+                        <p class="text-gray-400 leading-relaxed">
+                            Simply describe what you want to build in natural language. Upload files for additional
+                            context.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left">
                     <div
-                        class="flex-shrink-0 w-14 h-14 bg-white text-[#0d1117] rounded-full flex items-center justify-center text-xl font-bold">
+                        class="flex-shrink-0 w-16 h-16 bg-white text-[#0d1117] rounded-full flex items-center justify-center text-2xl font-bold shadow">
                         2
                     </div>
                     <div class="flex-1">
                         <h3 class="text-2xl font-semibold mb-2 text-white">AI Generates Code</h3>
-                        <p class="text-gray-400 leading-relaxed">Our AI analyzes your prompt and generates
-                            production-ready code optimized for your needs.</p>
+                        <p class="text-gray-400 leading-relaxed">
+                            Our AI analyzes your prompt and generates production-ready code optimized for your needs.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="flex flex-col md:flex-row items-start md:items-center gap-6">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6 text-center md:text-left">
                     <div
-                        class="flex-shrink-0 w-14 h-14 bg-white text-[#0d1117] rounded-full flex items-center justify-center text-xl font-bold">
+                        class="flex-shrink-0 w-16 h-16 bg-white text-[#0d1117] rounded-full flex items-center justify-center text-2xl font-bold shadow">
                         3
                     </div>
                     <div class="flex-1">
                         <h3 class="text-2xl font-semibold mb-2 text-white">Review & Deploy</h3>
-                        <p class="text-gray-400 leading-relaxed">Review the generated code, make adjustments if needed,
-                            and deploy to production.</p>
+                        <p class="text-gray-400 leading-relaxed">
+                            Review the generated code, make adjustments if needed, and deploy to production.
+                        </p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
