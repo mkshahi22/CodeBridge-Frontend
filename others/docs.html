@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation - CodeBridge</title>
+    <link rel="shortcut icon" href="../assets/images/logo.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+        body {
+            font-family: "Inter", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0d1117] text-white">
+
+    <!-- NAVBAR -->
+    <header class="bg-[#0d1117]/90 backdrop-blur-md border-b border-[#30363d] sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+
+                <div class="flex items-center space-x-2">
+                    <img src="../assets/images/logo.png" alt="CodeBridge Logo" class="w-8 h-8">
+                    <span class="text-xl font-semibold">CodeBridge Docs</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 text-sm font-medium">
+                    <a href="../index.html" class="text-gray-400 hover:text-white">Home</a>
+                    <a href="./about.html" class="text-gray-400 hover:text-white">About</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden text-gray-300">
+                    ☰
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-3 pb-4">
+                <div class="flex flex-col space-y-3 text-sm font-medium">
+                    <a href="../index.html" class="text-gray-400 hover:text-white">Home</a>
+                    <a href="./about.html" class="text-gray-400 hover:text-white">About</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="container mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl">
+
+        <!-- SIDEBAR -->
+        <aside class="md:col-span-1 border-r border-[#30363d] pr-4 hidden md:block sticky top-20 self-start">
+            <nav class="space-y-3 text-sm">
+
+                <a href="#overview" class="block text-gray-400 hover:text-white">Overview</a>
+                <a href="#setup" class="block text-gray-400 hover:text-white">Setup</a>
+                <a href="#auth" class="block text-gray-400 hover:text-white">Authentication</a>
+                <a href="#api-generate" class="block text-gray-400 hover:text-white">Code Generation API</a>
+                <a href="#file-upload" class="block text-gray-400 hover:text-white">File Upload</a>
+                <a href="#history" class="block text-gray-400 hover:text-white">History</a>
+                <a href="#settings" class="block text-gray-400 hover:text-white">Settings</a>
+                <a href="#faq" class="block text-gray-400 hover:text-white">FAQ</a>
+                <a href="#concepts" class="block text-gray-400 hover:text-white">Key Concepts</a>
+                <a href="#errors" class="block text-gray-400 hover:text-white">Error Handling</a>
+                <a href="#best-practices" class="block text-gray-400 hover:text-white">Best Practices</a>
+                <a href="#limitations" class="block text-gray-400 hover:text-white">Limitations</a>
+                <a href="#version" class="block text-gray-400 hover:text-white">Release Notes</a>
+
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="md:col-span-3 space-y-16">
+
+            <!-- OVERVIEW -->
+            <section id="overview">
+                <h1 class="text-4xl font-bold mb-4 text-center md:text-left">
+                    Overview
+                </h1>
+
+                <p class="text-gray-400 leading-relaxed text-center md:text-left mb-6">
+                    CodeBridge is an AI-powered platform designed to help developers build software faster through
+                    natural language-based code generation. From components to full applications, CodeBridge accelerates
+                    coding productivity.
+                </p>
+
+                <div class="mt-6 bg-[#161b22] p-6 rounded-lg border border-[#30363d]">
+                    <h3 class="text-xl font-semibold mb-3">What CodeBridge Offers</h3>
+                    <ul class="list-disc text-gray-400 pl-6 space-y-2">
+                        <li>ChatGPT-style dashboard for AI code generation</li>
+                        <li>Optimized, explainable, and debuggable code</li>
+                        <li>File upload for context-aware output</li>
+                        <li>History tracking with search filters</li>
+                        <li>Community sharing for public snippets</li>
+                        <li>User preferences & settings customization</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SETUP -->
+            <section id="setup">
+                <h2 class="text-2xl font-semibold mb-4">Setup</h2>
+                <p class="text-gray-400 mb-4">No installation needed. Everything runs in the browser.</p>
+                <ul class="list-disc text-gray-400 pl-6 space-y-2">
+                    <li>Frontend: HTML + Tailwind + JavaScript</li>
+                    <li>Backend: Spring Boot + MySQL + JWT</li>
+                    <li>AI Engine: Kiro API (Vibe Coding + MCP)</li>
+                </ul>
+            </section>
+
+            <!-- AUTH -->
+            <section id="auth">
+                <h2 class="text-2xl font-semibold mb-4">Authentication</h2>
+                <p class="text-gray-400 mb-4">
+                    Authentication uses JWT stored securely in <span class="text-white">localStorage</span>.
+                </p>
+
+                <pre class="bg-[#161b22] p-4 rounded-lg text-gray-300 text-sm overflow-auto">
+POST /auth/login
+{
+    "email": "user@example.com",
+    "password": "******"
+}
+                </pre>
+            </section>
+
+            <!-- GENERATION API -->
+            <section id="api-generate">
+                <h2 class="text-2xl font-semibold mb-4">Code Generation API</h2>
+                <p class="text-gray-400 mb-4">
+                    This endpoint sends your prompt to Kiro AI for generation:
+                </p>
+
+                <pre class="bg-[#161b22] p-4 rounded-lg text-gray-300 text-sm overflow-auto">
+POST /generate
+Headers:
+  Authorization: Bearer &lt;token&gt;
+
+Body:
+{
+    "prompt": "Create a React login page",
+    "files": []
+}
+                </pre>
+            </section>
+
+            <!-- FILE UPLOAD -->
+            <section id="file-upload">
+                <h2 class="text-2xl font-semibold mb-4">File Upload</h2>
+                <p class="text-gray-400 mb-4">Supported file types:</p>
+                <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                    <li>.js, .py, .java, .html, .css</li>
+                    <li>.txt, .md, .json</li>
+                    <li>.pdf (text extract)</li>
+                </ul>
+            </section>
+
+            <!-- HISTORY -->
+            <section id="history">
+                <h2 class="text-2xl font-semibold mb-4">History</h2>
+                <p class="text-gray-400">
+                    Every generation is saved automatically. You can view, copy, or delete past outputs.
+                </p>
+            </section>
+
+            <!-- SETTINGS -->
+            <section id="settings">
+                <h2 class="text-2xl font-semibold mb-4">Settings</h2>
+                <p class="text-gray-400">
+                    Customize language, detail level, notifications, and privacy options.
+                </p>
+            </section>
+
+            <!-- FAQ -->
+            <section id="faq">
+                <h2 class="text-2xl font-semibold mb-4">FAQ</h2>
+
+                <h3 class="font-semibold text-lg mt-4">Is CodeBridge free?</h3>
+                <p class="text-gray-400 mb-3">Yes, completely free.</p>
+
+                <h3 class="font-semibold text-lg mt-4">Which AI do you use?</h3>
+                <p class="text-gray-400 mb-3">We use Kiro AI with Vibe Coding + MCP.</p>
+
+                <h3 class="font-semibold text-lg mt-4">Can I upload files?</h3>
+                <p class="text-gray-400 mb-3">Yes, multiple formats supported.</p>
+            </section>
+
+            <!-- KEY CONCEPTS -->
+            <section id="concepts">
+                <h2 class="text-2xl font-semibold mb-4">Key Concepts</h2>
+                <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                    <li><strong>Prompt:</strong> Natural language request for code.</li>
+                    <li><strong>Generation:</strong> Output created by AI.</li>
+                    <li><strong>Context Files:</strong> Uploaded support files.</li>
+                    <li><strong>Community Post:</strong> Publicly shared output.</li>
+                </ul>
+            </section>
+
+            <!-- ERROR HANDLING -->
+            <section id="errors">
+                <h2 class="text-2xl font-semibold mb-4">Error Handling</h2>
+                <pre class="bg-[#161b22] p-4 rounded-lg text-gray-300 text-sm overflow-auto">
+{
+    "status": 400,
+    "error": "Invalid prompt",
+    "message": "Prompt cannot be empty"
+}
+                </pre>
+                <p class="text-gray-400 mt-3">Most errors occur due to missing tokens or invalid input.</p>
+            </section>
+
+            <!-- BEST PRACTICES -->
+            <section id="best-practices">
+                <h2 class="text-2xl font-semibold mb-4">Best Practices</h2>
+                <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                    <li>Use short and clear prompts.</li>
+                    <li>Break problems into smaller tasks.</li>
+                    <li>Upload files when context is required.</li>
+                    <li>Review generated code manually.</li>
+                </ul>
+            </section>
+
+            <!-- LIMITATIONS -->
+            <section id="limitations">
+                <h2 class="text-2xl font-semibold mb-4">Limitations</h2>
+                <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                    <li>Some advanced frameworks may need tweaking.</li>
+                    <li>Large uploads may slow down response.</li>
+                    <li>AI output may not always be optimized.</li>
+                </ul>
+            </section>
+
+            <!-- RELEASE NOTES -->
+            <section id="version">
+                <h2 class="text-2xl font-semibold mb-4">Release Notes</h2>
+
+                <p class="text-gray-400 mb-2"><strong>CodeBridge v1.0 — Kiroween Hackathon Edition</strong></p>
+
+                <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                    <li>Full AI-powered dashboard</li>
+                    <li>JWT Authentication</li>
+                    <li>Code Generation + File Upload</li>
+                    <li>History, Community, Profile, Settings</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.getElementById("menu-btn").addEventListener("click", () => {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        });
+    </script>
+
+</body>
+
+</html>
