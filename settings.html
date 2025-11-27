@@ -7,8 +7,6 @@
     <title>Settings - CodeBridge</title>
     <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -25,23 +23,67 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
         }
 
-        code,
-        pre {
-            font-family: 'Fira Code', monospace;
+        /* Sidebar Transitions */
+        .sidebar {
+            transition: width 0.3s ease, transform 0.3s ease;
+            width: 240px;
         }
 
-        .sidebar {
-            transition: transform 0.3s ease;
+        .sidebar.collapsed {
+            width: 60px;
         }
 
         .sidebar-hidden {
             transform: translateX(-100%);
+        }
+
+        @media (max-width: 767px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar:not(.sidebar-hidden) {
+                transform: translateX(0);
+            }
+        }
+
+        /* Hide text and logo when collapsed on desktop */
+        @media (min-width: 768px) {
+            .sidebar.collapsed .sidebar-text {
+                display: none;
+            }
+
+            .sidebar.collapsed .logo-img {
+                display: none;
+            }
+
+            .sidebar.collapsed .nav-item {
+                justify-content: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        /* Main content margin adjustment */
+        .main-content {
+            margin-left: 240px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 60px;
+        }
+
+        @media (max-width: 767px) {
+            .main-content {
+                margin-left: 0;
+            }
         }
 
         .backdrop {
@@ -53,60 +95,63 @@
             display: block;
         }
 
-        .typing-animation::after {
-            content: '|';
-            animation: blink 1s infinite;
+        /* Custom Range Slider */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
         }
 
-        @keyframes blink {
-
-            0%,
-            50% {
-                opacity: 1;
-            }
-
-            51%,
-            100% {
-                opacity: 0;
-            }
+        input[type="range"]::-webkit-slider-track {
+            background: #30363d;
+            height: 4px;
+            border-radius: 2px;
         }
 
-        .file-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            background: #161b22;
-            border: 1px solid #30363d;
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            background: white;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            margin-top: -6px;
+        }
+
+        input[type="range"]::-moz-range-track {
+            background: #30363d;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            background: white;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            border: none;
+        }
+
+        /* Success Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
             border-radius: 0.5rem;
-            font-size: 0.875rem;
-        }
-
-        .code-block {
-            position: relative;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
             opacity: 0;
-            transition: opacity 0.2s;
+            transition: all 0.3s ease;
+            z-index: 100;
         }
 
-        .code-block:hover .copy-btn {
+        .toast.show {
+            transform: translateY(0);
             opacity: 1;
-        }
-
-        .output-area {
-            height: calc(100vh - 240px);
-            overflow-y: auto;
-        }
-
-        .input-section {
-            position: sticky;
-            bottom: 0;
-            background: #0d1117;
         }
 
         /* Scrollbar Styling */
@@ -126,98 +171,706 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #484f58;
         }
+
+        /* Section Styling */
+        .settings-section {
+            scroll-margin-top: 80px;
+        }
     </style>
 </head>
 
 <body class="bg-[#0d1117] text-white">
+    <!-- Backdrop for Mobile Menu -->
     <div id="backdrop" class="backdrop fixed inset-0 bg-black/50 z-40 md:hidden"></div>
 
     <!-- Sidebar -->
-    <aside id="sidebar"
-        class="sidebar fixed left-0 top-0 h-full w-64 bg-[#161b22] border-r border-[#30363d] z-50 md:translate-x-0">
+    <aside id="sidebar" class="sidebar fixed left-0 top-0 h-full bg-[#161b22] border-r border-[#30363d] z-50">
         <div class="flex flex-col h-full">
-
-            <!-- Logo -->
-            <div class="p-4 border-b border-[#30363d]">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2">
-                        <img src="./assets/images/logo.png" alt="CodeBridge Logo" class="w-8 h-8">
-                        <span class="text-lg font-semibold">CodeBridge</span>
-                    </div>
-                    <!-- Close button for mobile -->
-                    <button id="close-sidebar" class="md:hidden text-gray-400 hover:text-white">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+            <!-- Logo & Toggle -->
+            <div class="p-4 border-b border-[#30363d] flex items-center justify-between">
+                <div class="flex items-center space-x-2 overflow-hidden">
+                    <img src="./assets/images/logo.png" alt="CodeBridge Logo" class="logo-img w-6 h-6 flex-shrink-0">
+                    <span class="sidebar-text text-base font-semibold whitespace-nowrap">CodeBridge</span>
                 </div>
+                <!-- Toggle Button (Desktop) -->
+                <button id="toggle-sidebar" class="hidden md:block text-gray-400 hover:text-white flex-shrink-0">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <!-- Close Button (Mobile) -->
+                <button id="close-sidebar" class="md:hidden text-gray-400 hover:text-white flex-shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
 
             <!-- Navigation -->
-            <nav class="flex-1 p-4 space-y-1">
+            <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
                 <a href="dashboard.html"
-                    class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-white/10 text-white">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
-                    <span class="text-sm font-medium">Dashboard</span>
+                    <span class="sidebar-text text-sm font-medium whitespace-nowrap">Dashboard</span>
                 </a>
-
                 <a href="history.html"
-                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <span class="text-sm font-medium">History</span>
+                    <span class="sidebar-text text-sm font-medium whitespace-nowrap">History</span>
                 </a>
-
                 <a href="community.html"
-                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                     </svg>
-                    <span class="text-sm font-medium">Community</span>
+                    <span class="sidebar-text text-sm font-medium whitespace-nowrap">Community</span>
                 </a>
-
                 <a href="profile.html"
-                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                    <span class="text-sm font-medium">Profile</span>
+                    <span class="sidebar-text text-sm font-medium whitespace-nowrap">Profile</span>
                 </a>
-
                 <a href="settings.html"
-                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-white/10 text-white">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <span class="text-sm font-medium">Settings</span>
+                    <span class="sidebar-text text-sm font-medium whitespace-nowrap">Settings</span>
                 </a>
             </nav>
 
             <!-- Logout -->
-            <div class="p-4 border-t border-[#30363d]">
+            <div class="p-3 border-t border-[#30363d]">
                 <button id="logout-btn"
-                    class="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition w-full">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    class="nav-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition w-full">
+                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                    <span class="text-sm font-medium">Logout</span>
+                    <span class="sidebar-text text-sm font-medium whitespace-nowrap">Logout</span>
                 </button>
             </div>
-
         </div>
     </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content min-h-screen">
+        <!-- Header -->
+        <header class="sticky top-0 bg-[#0d1117] border-b border-[#30363d] z-30 px-4 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Hamburger Menu (Mobile Only) -->
+                <button id="menu-btn" class="md:hidden text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <!-- Settings Title (Centered on Mobile) -->
+                <h1 class="text-lg font-semibold absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">Settings
+                </h1>
+                <div class="w-6"></div>
+            </div>
+        </header>
+
+        <!-- Settings Content -->
+        <div class="px-4 py-6">
+            <div class="max-w-4xl mx-auto space-y-6">
+
+                <!-- Editor Preferences -->
+                <section id="editor-section"
+                    class="settings-section bg-[#161b22] border border-[#30363d] rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        <h2 class="text-xl font-semibold">Editor Preferences</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Default Language -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Default Language</label>
+                            <select id="default-language"
+                                class="w-full px-4 py-2 bg-[#0d1117] border border-[#30363d] rounded-lg text-white text-sm focus:outline-none focus:border-white">
+                                <option value="javascript">JavaScript</option>
+                                <option value="python">Python</option>
+                                <option value="java">Java</option>
+                                <option value="typescript">TypeScript</option>
+                                <option value="cpp">C++</option>
+                                <option value="go">Go</option>
+                                <option value="rust">Rust</option>
+                            </select>
+                        </div>
+
+                        <!-- Tab Size -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Tab Size</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button
+                                    class="tab-size-btn active px-4 py-2 border border-[#30363d] rounded-lg text-sm hover:border-white transition"
+                                    data-size="2">2 spaces</button>
+                                <button
+                                    class="tab-size-btn px-4 py-2 border border-[#30363d] rounded-lg text-sm hover:border-white transition"
+                                    data-size="4">4 spaces</button>
+                                <button
+                                    class="tab-size-btn px-4 py-2 border border-[#30363d] rounded-lg text-sm hover:border-white transition"
+                                    data-size="tab">Tabs</button>
+                            </div>
+                        </div>
+
+                        <!-- Editor Features -->
+                        <div class="space-y-3">
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Auto-save</span>
+                                <input type="checkbox" id="auto-save" checked
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Syntax highlighting</span>
+                                <input type="checkbox" id="syntax-highlight" checked
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Line numbers</span>
+                                <input type="checkbox" id="line-numbers" checked
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Word wrap</span>
+                                <input type="checkbox" id="word-wrap"
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Generation Settings -->
+                <section id="generation-section"
+                    class="settings-section bg-[#161b22] border border-[#30363d] rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                        <h2 class="text-xl font-semibold">Generation Settings</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Detail Level -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-sm font-medium text-gray-300">Detail Level</label>
+                                <span id="detail-level-value" class="text-sm text-gray-400">3 - Balanced</span>
+                            </div>
+                            <input type="range" id="detail-level" min="1" max="5" value="3" class="w-full">
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>Minimal</span>
+                                <span>Verbose</span>
+                            </div>
+                        </div>
+
+                        <!-- Code Options -->
+                        <div class="space-y-3">
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Include inline comments</span>
+                                <input type="checkbox" id="include-comments" checked
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Include documentation</span>
+                                <input type="checkbox" id="include-docs"
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Generate unit tests</span>
+                                <input type="checkbox" id="generate-tests"
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Add error handling</span>
+                                <input type="checkbox" id="error-handling" checked
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm text-gray-300">Include type hints</span>
+                                <input type="checkbox" id="type-hints"
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Notifications -->
+                <section id="notifications-section"
+                    class="settings-section bg-[#161b22] border border-[#30363d] rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <h2 class="text-xl font-semibold">Notifications</h2>
+                    </div>
+
+                    <div class="space-y-3">
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p class="text-sm text-gray-300">Email notifications</p>
+                                <p class="text-xs text-gray-500">Receive important updates via email</p>
+                            </div>
+                            <input type="checkbox" id="email-notif" checked
+                                class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p class="text-sm text-gray-300">Generation completed</p>
+                                <p class="text-xs text-gray-500">Notify when code generation finishes</p>
+                            </div>
+                            <input type="checkbox" id="gen-complete-notif"
+                                class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p class="text-sm text-gray-300">Community interactions</p>
+                                <p class="text-xs text-gray-500">Likes, comments on your projects</p>
+                            </div>
+                            <input type="checkbox" id="community-notif" checked
+                                class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                        </label>
+                        <label class="flex items-center justify-between cursor-pointer">
+                            <div>
+                                <p class="text-sm text-gray-300">Weekly digest</p>
+                                <p class="text-xs text-gray-500">Summary of your activity and stats</p>
+                            </div>
+                            <input type="checkbox" id="weekly-digest"
+                                class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Privacy & Sharing -->
+                <section id="privacy-section"
+                    class="settings-section bg-[#161b22] border border-[#30363d] rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        <h2 class="text-xl font-semibold">Privacy & Sharing</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Profile Visibility -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Profile Visibility</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button
+                                    class="visibility-btn active px-4 py-2 border border-[#30363d] rounded-lg text-sm hover:border-white transition"
+                                    data-visibility="public">
+                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    Public
+                                </button>
+                                <button
+                                    class="visibility-btn px-4 py-2 border border-[#30363d] rounded-lg text-sm hover:border-white transition"
+                                    data-visibility="private">
+                                    <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                    Private
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Default Share Mode -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Default Share Mode</label>
+                            <select id="share-mode"
+                                class="w-full px-4 py-2 bg-[#0d1117] border border-[#30363d] rounded-lg text-white text-sm focus:outline-none focus:border-white">
+                                <option value="private">Private</option>
+                                <option value="unlisted">Unlisted</option>
+                                <option value="public">Public</option>
+                            </select>
+                        </div>
+
+                        <!-- Data Settings -->
+                        <div class="space-y-3">
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <div>
+                                    <p class="text-sm text-gray-300">Usage analytics</p>
+                                    <p class="text-xs text-gray-500">Help improve CodeBridge</p>
+                                </div>
+                                <input type="checkbox" id="usage-analytics" checked
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <div>
+                                    <p class="text-sm text-gray-300">Share anonymized data</p>
+                                    <p class="text-xs text-gray-500">For research purposes</p>
+                                </div>
+                                <input type="checkbox" id="share-data"
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Account & Security -->
+                <section id="security-section"
+                    class="settings-section bg-[#161b22] border border-[#30363d] rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <h2 class="text-xl font-semibold">Account & Security</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <!-- Change Password -->
+                        <button id="change-password-btn"
+                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between">
+                            <div>
+                                <p class="font-medium">Change Password</p>
+                                <p class="text-sm text-gray-400">Update your password regularly</p>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        <!-- Two-Factor Authentication -->
+                        <div class="px-4 py-3 border border-[#30363d] rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="font-medium">Two-Factor Authentication</p>
+                                    <p class="text-sm text-gray-400">Add extra security layer</p>
+                                </div>
+                                <button id="setup-2fa-btn"
+                                    class="px-4 py-1.5 bg-white text-[#0d1117] rounded-lg text-sm font-medium hover:bg-gray-200 transition">
+                                    Setup
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Connected Accounts -->
+                        <div>
+                            <p class="text-sm font-medium text-gray-300 mb-3">Connected Accounts</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between px-4 py-3 bg-[#0d1117] rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                            <path fill="#EA4335"
+                                                d="M5.26620003,9.76452941 C6.19878754,6.93863203 8.85444915,4.90909091 12,4.90909091 C13.6909091,4.90909091 15.2181818,5.50909091 16.4181818,6.49090909 L19.9090909,3 C17.7818182,1.14545455 15.0545455,0 12,0 C7.27006974,0 3.1977497,2.69829785 1.23999023,6.65002441 L5.26620003,9.76452941 Z" />
+                                        </svg>
+                                        <span class="text-sm">Google</span>
+                                    </div>
+                                    <button class="text-xs text-gray-400 hover:text-white transition">Connect</button>
+                                </div>
+                                <div class="flex items-center justify-between px-4 py-3 bg-[#0d1117] rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                                        </svg>
+                                        <span class="text-sm">GitHub</span>
+                                    </div>
+                                    <button class="text-xs text-gray-400 hover:text-white transition">Connect</button>
+                                </div>
+                                <div class="flex items-center justify-between px-4 py-3 bg-[#0d1117] rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <svg class="w-5 h-5 text-[#0077B5]" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                        </svg>
+                                        <span class="text-sm">LinkedIn</span>
+                                    </div>
+                                    <button class="text-xs text-gray-400 hover:text-white transition">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Sessions -->
+                        <div>
+                            <p class="text-sm font-medium text-gray-300 mb-3">Active Sessions</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between px-4 py-3 bg-[#0d1117] rounded-lg">
+                                    <div>
+                                        <p class="text-sm">Current Device</p>
+                                        <p class="text-xs text-gray-500">Greater Noida, India • Chrome • Active now</p>
+                                    </div>
+                                    <span class="text-xs text-green-400">Active</span>
+                                </div>
+                            </div>
+                            <button id="logout-all-btn" class="mt-3 text-sm text-red-400 hover:text-red-300 transition">
+                                Logout from all devices
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Export & Import -->
+                <section id="export-section"
+                    class="settings-section bg-[#161b22] border border-[#30363d] rounded-xl p-6">
+                    <div class="flex items-center gap-3 mb-4">
+                        <svg class="w-5 h-5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        <h2 class="text-xl font-semibold">Export & Import</h2>
+                    </div>
+                    <div class="space-y-3">
+                        <button id="export-settings-btn"
+                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between">
+                            <div>
+                                <p class="font-medium">Export Settings</p>
+                                <p class="text-sm text-gray-400">Download your settings as JSON</p>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                        </button>
+                        <button id="import-settings-btn"
+                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between">
+                            <div>
+                                <p class="font-medium">Import Settings</p>
+                                <p class="text-sm text-gray-400">Upload settings JSON file</p>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
+                        </button>
+                        <input type="file" id="import-file-input" accept=".json" class="hidden">
+                        <button id="export-data-btn"
+                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between">
+                            <div>
+                                <p class="font-medium">Export All Data</p>
+                                <p class="text-sm text-gray-400">Download all your history as ZIP</p>
+                            </div>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Save Settings Button -->
+                <div class="sticky bottom-4 bg-[#0d1117] pt-4 pb-2">
+                    <button id="save-all-btn"
+                        class="w-full py-3 bg-white text-[#0d1117] rounded-lg font-semibold hover:bg-gray-200 transition">
+                        Save All Settings
+                    </button>
+                    <button id="reset-defaults-btn"
+                        class="w-full mt-2 py-3 border border-[#30363d] rounded-lg font-semibold hover:border-white transition">
+                        Reset to Defaults
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Toast -->
+    <div id="success-toast" class="toast">
+        Settings saved successfully!
+    </div>
+
+    <script>
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        const toggleSidebarBtn = document.getElementById('toggle-sidebar');
+        const menuBtn = document.getElementById('menu-btn');
+        const closeSidebar = document.getElementById('close-sidebar');
+        const backdrop = document.getElementById('backdrop');
+
+        toggleSidebarBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('sidebar-collapsed');
+        });
+
+        function openMobileSidebar() {
+            sidebar.classList.remove('sidebar-hidden');
+            backdrop.classList.add('show');
+        }
+
+        function closeMobileSidebar() {
+            sidebar.classList.add('sidebar-hidden');
+            backdrop.classList.remove('show');
+        }
+
+        menuBtn.addEventListener('click', openMobileSidebar);
+        closeSidebar.addEventListener('click', closeMobileSidebar);
+        backdrop.addEventListener('click', closeMobileSidebar);
+
+        // Tab Size Selection
+        document.querySelectorAll('.tab-size-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-size-btn').forEach(b => b.classList.remove('active', 'bg-white/10', 'border-white'));
+                btn.classList.add('active', 'bg-white/10', 'border-white');
+            });
+        });
+
+        // Detail Level Slider
+        const detailLevel = document.getElementById('detail-level');
+        const detailLevelValue = document.getElementById('detail-level-value');
+        const levelLabels = ['1 - Minimal', '2 - Brief', '3 - Balanced', '4 - Detailed', '5 - Verbose'];
+
+        detailLevel.addEventListener('input', () => {
+            const value = detailLevel.value;
+            detailLevelValue.textContent = levelLabels[value - 1];
+        });
+
+        // Profile Visibility Selection
+        document.querySelectorAll('.visibility-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.visibility-btn').forEach(b => b.classList.remove('active', 'bg-white/10', 'border-white'));
+                btn.classList.add('active', 'bg-white/10', 'border-white');
+            });
+        });
+
+        // Change Password
+        document.getElementById('change-password-btn').addEventListener('click', () => {
+            window.location.href = 'reset.html';
+        });
+
+        // Setup 2FA
+        document.getElementById('setup-2fa-btn').addEventListener('click', () => {
+            alert('Two-Factor Authentication setup would be implemented here');
+        });
+
+        // Logout All Sessions
+        document.getElementById('logout-all-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout from all devices?')) {
+                alert('Logged out from all devices');
+            }
+        });
+
+        // Export Settings
+        document.getElementById('export-settings-btn').addEventListener('click', () => {
+            const settings = {
+                editor: {
+                    defaultLanguage: document.getElementById('default-language').value,
+                    autoSave: document.getElementById('auto-save').checked,
+                    syntaxHighlight: document.getElementById('syntax-highlight').checked,
+                    lineNumbers: document.getElementById('line-numbers').checked,
+                    wordWrap: document.getElementById('word-wrap').checked
+                },
+                generation: {
+                    detailLevel: document.getElementById('detail-level').value,
+                    includeComments: document.getElementById('include-comments').checked,
+                    includeDocs: document.getElementById('include-docs').checked,
+                    generateTests: document.getElementById('generate-tests').checked,
+                    errorHandling: document.getElementById('error-handling').checked,
+                    typeHints: document.getElementById('type-hints').checked
+                },
+                notifications: {
+                    email: document.getElementById('email-notif').checked,
+                    genComplete: document.getElementById('gen-complete-notif').checked,
+                    community: document.getElementById('community-notif').checked,
+                    weeklyDigest: document.getElementById('weekly-digest').checked
+                }
+            };
+
+            const blob = new Blob([JSON.stringify(settings, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'codebridge-settings.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Import Settings
+        document.getElementById('import-settings-btn').addEventListener('click', () => {
+            document.getElementById('import-file-input').click();
+        });
+
+        document.getElementById('import-file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const settings = JSON.parse(event.target.result);
+                        // Apply imported settings
+                        if (settings.editor) {
+                            document.getElementById('default-language').value = settings.editor.defaultLanguage;
+                            document.getElementById('auto-save').checked = settings.editor.autoSave;
+                            document.getElementById('syntax-highlight').checked = settings.editor.syntaxHighlight;
+                            document.getElementById('line-numbers').checked = settings.editor.lineNumbers;
+                            document.getElementById('word-wrap').checked = settings.editor.wordWrap;
+                        }
+                        showToast();
+                    } catch (error) {
+                        alert('Invalid settings file');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Export Data
+        document.getElementById('export-data-btn').addEventListener('click', () => {
+            alert('Exporting all data as ZIP... This would download all your code history.');
+        });
+
+        // Save All Settings
+        document.getElementById('save-all-btn').addEventListener('click', () => {
+            // Collect all settings and save via API
+            showToast();
+        });
+
+        // Reset to Defaults
+        document.getElementById('reset-defaults-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset all settings to defaults?')) {
+                // Reset logic here
+                showToast();
+            }
+        });
+
+        // Toast Notification
+        function showToast() {
+            const toast = document.getElementById('success-toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        });
+
+        // if (!localStorage.getItem('token')) {
+        //     window.location.href = 'login.html';
+        // }
+    </script>
 </body>
 
 </html>

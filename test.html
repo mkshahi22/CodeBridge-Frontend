@@ -508,7 +508,7 @@
                             <select id="share-mode"
                                 class="w-full px-4 py-2 bg-[#0d1117] border border-[#30363d] rounded-lg text-white text-sm focus:outline-none focus:border-white">
                                 <option value="private">Private</option>
-                                <option value="unlisted">Unlisted</option>
+                                <option value="unlisted">Unlisted (link only)</option>
                                 <option value="public">Public</option>
                             </select>
                         </div>
@@ -528,7 +528,7 @@
                                     <p class="text-sm text-gray-300">Share anonymized data</p>
                                     <p class="text-xs text-gray-500">For research purposes</p>
                                 </div>
-                                <input type="checkbox" id="share-data"
+                                <input type="checkbox" id="anonymized-data"
                                     class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
                             </label>
                         </div>
@@ -545,49 +545,58 @@
                         </svg>
                         <h2 class="text-xl font-semibold">Account & Security</h2>
                     </div>
+
                     <div class="space-y-4">
-                        <!-- Change Password -->
-                        <button id="change-password-btn"
-                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between">
-                            <div>
-                                <p class="font-medium">Change Password</p>
-                                <p class="text-sm text-gray-400">Update your password regularly</p>
-                            </div>
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                        <!-- Password Management -->
+                        <div>
+                            <button id="change-password-btn"
+                                class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between group">
+                                <div>
+                                    <p class="font-medium">Change Password</p>
+                                    <p class="text-sm text-gray-400">Update your password</p>
+                                </div>
+                                <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                        </div>
 
                         <!-- Two-Factor Authentication -->
-                        <div class="px-4 py-3 border border-[#30363d] rounded-lg">
-                            <div class="flex items-center justify-between">
+                        <div>
+                            <label
+                                class="flex items-center justify-between cursor-pointer p-4 border border-[#30363d] rounded-lg hover:border-white transition">
                                 <div>
                                     <p class="font-medium">Two-Factor Authentication</p>
-                                    <p class="text-sm text-gray-400">Add extra security layer</p>
+                                    <p class="text-sm text-gray-400">Add an extra layer of security</p>
                                 </div>
-                                <button id="setup-2fa-btn"
-                                    class="px-4 py-1.5 bg-white text-[#0d1117] rounded-lg text-sm font-medium hover:bg-gray-200 transition">
-                                    Setup
-                                </button>
-                            </div>
+                                <input type="checkbox" id="two-factor"
+                                    class="w-4 h-4 rounded border-[#30363d] bg-[#0d1117] text-white focus:ring-white focus:ring-offset-[#161b22]">
+                            </label>
                         </div>
 
                         <!-- Connected Accounts -->
                         <div>
-                            <p class="text-sm font-medium text-gray-300 mb-3">Connected Accounts</p>
+                            <h3 class="text-sm font-medium text-gray-300 mb-3">Connected Accounts</h3>
                             <div class="space-y-2">
-                                <div class="flex items-center justify-between px-4 py-3 bg-[#0d1117] rounded-lg">
+                                <div class="flex items-center justify-between p-3 border border-[#30363d] rounded-lg">
                                     <div class="flex items-center gap-3">
                                         <svg class="w-5 h-5" viewBox="0 0 24 24">
                                             <path fill="#EA4335"
                                                 d="M5.26620003,9.76452941 C6.19878754,6.93863203 8.85444915,4.90909091 12,4.90909091 C13.6909091,4.90909091 15.2181818,5.50909091 16.4181818,6.49090909 L19.9090909,3 C17.7818182,1.14545455 15.0545455,0 12,0 C7.27006974,0 3.1977497,2.69829785 1.23999023,6.65002441 L5.26620003,9.76452941 Z" />
+                                            <path fill="#34A853"
+                                                d="M16.0407269,18.0125889 C14.9509167,18.7163016 13.5660892,19.0909091 12,19.0909091 C8.86648613,19.0909091 6.21911939,17.076871 5.27698177,14.2678769 L1.23746264,17.3349879 C3.19279051,21.2936293 7.26500293,24 12,24 C14.9328362,24 17.7353462,22.9573905 19.834192,20.9995801 L16.0407269,18.0125889 Z" />
+                                            <path fill="#4A90E2"
+                                                d="M19.834192,20.9995801 C22.0291676,18.9520994 23.4545455,15.903663 23.4545455,12 C23.4545455,11.2909091 23.3454545,10.5272727 23.1818182,9.81818182 L12,9.81818182 L12,14.4545455 L18.4363636,14.4545455 C18.1187732,16.013626 17.2662994,17.2212117 16.0407269,18.0125889 L19.834192,20.9995801 Z" />
+                                            <path fill="#FBBC05"
+                                                d="M5.27698177,14.2678769 C5.03832634,13.556323 4.90909091,12.7937589 4.90909091,12 C4.90909091,11.2182781 5.03443647,10.4668121 5.26620003,9.76452941 L1.23999023,6.65002441 C0.43658717,8.26043162 0,10.0753848 0,12 C0,13.9195484 0.444780743,15.7301709 1.23746264,17.3349879 L5.27698177,14.2678769 Z" />
                                         </svg>
                                         <span class="text-sm">Google</span>
                                     </div>
-                                    <button class="text-xs text-gray-400 hover:text-white transition">Connect</button>
+                                    <button class="text-sm text-red-400 hover:text-red-300">Disconnect</button>
                                 </div>
-                                <div class="flex items-center justify-between px-4 py-3 bg-[#0d1117] rounded-lg">
+                                <div class="flex items-center justify-between p-3 border border-[#30363d] rounded-lg">
                                     <div class="flex items-center gap-3">
                                         <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -595,9 +604,9 @@
                                         </svg>
                                         <span class="text-sm">GitHub</span>
                                     </div>
-                                    <button class="text-xs text-gray-400 hover:text-white transition">Connect</button>
+                                    <button class="text-sm text-blue-400 hover:text-blue-300">Connect</button>
                                 </div>
-                                <div class="flex items-center justify-between px-4 py-3 bg-[#0d1117] rounded-lg">
+                                <div class="flex items-center justify-between p-3 border border-[#30363d] rounded-lg">
                                     <div class="flex items-center gap-3">
                                         <svg class="w-5 h-5 text-[#0077B5]" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -605,24 +614,27 @@
                                         </svg>
                                         <span class="text-sm">LinkedIn</span>
                                     </div>
-                                    <button class="text-xs text-gray-400 hover:text-white transition">Connect</button>
+                                    <button class="text-sm text-blue-400 hover:text-blue-300">Connect</button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Active Sessions -->
                         <div>
-                            <p class="text-sm font-medium text-gray-300 mb-3">Active Sessions</p>
+                            <h3 class="text-sm font-medium text-gray-300 mb-3">Active Sessions</h3>
                             <div class="space-y-2">
-                                <div class="flex items-center justify-between px-4 py-3 bg-[#0d1117] rounded-lg">
+                                <div class="flex items-center justify-between p-3 border border-[#30363d] rounded-lg">
                                     <div>
-                                        <p class="text-sm">Current Device</p>
-                                        <p class="text-xs text-gray-500">Greater Noida, India • Chrome • Active now</p>
+                                        <p class="text-sm font-medium">Current Device</p>
+                                        <p class="text-xs text-gray-400">Chrome on Windows • Greater Noida, IN</p>
+                                        <p class="text-xs text-gray-500">Active now</p>
                                     </div>
-                                    <span class="text-xs text-green-400">Active</span>
+                                    <span
+                                        class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded">Current</span>
                                 </div>
                             </div>
-                            <button id="logout-all-btn" class="mt-3 text-sm text-red-400 hover:text-red-300 transition">
+                            <button id="logout-all-btn"
+                                class="mt-3 w-full px-4 py-2 border border-[#30363d] rounded-lg text-sm hover:border-red-500 hover:text-red-400 transition">
                                 Logout from all devices
                             </button>
                         </div>
@@ -635,49 +647,55 @@
                     <div class="flex items-center gap-3 mb-4">
                         <svg class="w-5 h-5 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                         </svg>
                         <h2 class="text-xl font-semibold">Export & Import</h2>
                     </div>
+
                     <div class="space-y-3">
                         <button id="export-settings-btn"
-                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between">
+                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between group">
                             <div>
                                 <p class="font-medium">Export Settings</p>
                                 <p class="text-sm text-gray-400">Download your settings as JSON</p>
                             </div>
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                             </svg>
                         </button>
+
                         <button id="import-settings-btn"
-                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between">
+                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between group">
                             <div>
                                 <p class="font-medium">Import Settings</p>
-                                <p class="text-sm text-gray-400">Upload settings JSON file</p>
+                                <p class="text-sm text-gray-400">Upload settings from JSON file</p>
                             </div>
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                             </svg>
                         </button>
                         <input type="file" id="import-file-input" accept=".json" class="hidden">
+
                         <button id="export-data-btn"
-                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between">
+                            class="w-full px-4 py-3 border border-[#30363d] rounded-lg text-left hover:border-white transition flex items-center justify-between group">
                             <div>
                                 <p class="font-medium">Export All Data</p>
                                 <p class="text-sm text-gray-400">Download all your history as ZIP</p>
                             </div>
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-white" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
                             </svg>
                         </button>
                     </div>
                 </section>
 
-                <!-- Save Settings Button -->
+                <!-- Save Button (Sticky at bottom on mobile) -->
                 <div class="sticky bottom-4 bg-[#0d1117] pt-4 pb-2">
                     <button id="save-all-btn"
                         class="w-full py-3 bg-white text-[#0d1117] rounded-lg font-semibold hover:bg-gray-200 transition">
@@ -688,13 +706,55 @@
                         Reset to Defaults
                     </button>
                 </div>
+
             </div>
         </div>
     </main>
 
     <!-- Success Toast -->
     <div id="success-toast" class="toast">
-        Settings saved successfully!
+        <div class="flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span id="toast-message">Settings saved successfully!</span>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="password-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+        <div class="bg-[#161b22] rounded-xl border border-[#30363d] max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold">Change Password</h3>
+                <button id="close-password-modal" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <form id="change-password-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Current Password</label>
+                    <input type="password" id="current-password" required
+                        class="w-full px-4 py-2 bg-[#0d1117] border border-[#30363d] rounded-lg text-white text-sm focus:outline-none focus:border-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">New Password</label>
+                    <input type="password" id="new-password" required
+                        class="w-full px-4 py-2 bg-[#0d1117] border border-[#30363d] rounded-lg text-white text-sm focus:outline-none focus:border-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">Confirm New Password</label>
+                    <input type="password" id="confirm-new-password" required
+                        class="w-full px-4 py-2 bg-[#0d1117] border border-[#30363d] rounded-lg text-white text-sm focus:outline-none focus:border-white">
+                </div>
+                <button type="submit"
+                    class="w-full py-2 bg-white text-[#0d1117] rounded-lg font-semibold hover:bg-gray-200 transition">
+                    Update Password
+                </button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -728,51 +788,47 @@
         // Tab Size Selection
         document.querySelectorAll('.tab-size-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-size-btn').forEach(b => b.classList.remove('active', 'bg-white/10', 'border-white'));
-                btn.classList.add('active', 'bg-white/10', 'border-white');
+                document.querySelectorAll('.tab-size-btn').forEach(b => b.classList.remove('active', 'bg-white/10'));
+                btn.classList.add('active', 'bg-white/10');
+            });
+        });
+
+        // Visibility Selection
+        document.querySelectorAll('.visibility-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.visibility-btn').forEach(b => b.classList.remove('active', 'bg-white/10'));
+                btn.classList.add('active', 'bg-white/10');
             });
         });
 
         // Detail Level Slider
-        const detailLevel = document.getElementById('detail-level');
+        const detailLevelSlider = document.getElementById('detail-level');
         const detailLevelValue = document.getElementById('detail-level-value');
-        const levelLabels = ['1 - Minimal', '2 - Brief', '3 - Balanced', '4 - Detailed', '5 - Verbose'];
+        const detailLabels = ['1 - Minimal', '2 - Brief', '3 - Balanced', '4 - Detailed', '5 - Verbose'];
 
-        detailLevel.addEventListener('input', () => {
-            const value = detailLevel.value;
-            detailLevelValue.textContent = levelLabels[value - 1];
+        detailLevelSlider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            detailLevelValue.textContent = detailLabels[value - 1];
         });
 
-        // Profile Visibility Selection
-        document.querySelectorAll('.visibility-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.visibility-btn').forEach(b => b.classList.remove('active', 'bg-white/10', 'border-white'));
-                btn.classList.add('active', 'bg-white/10', 'border-white');
-            });
-        });
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('success-toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
-        // Change Password
-        document.getElementById('change-password-btn').addEventListener('click', () => {
-            window.location.href = 'reset.html';
-        });
-
-        // Setup 2FA
-        document.getElementById('setup-2fa-btn').addEventListener('click', () => {
-            alert('Two-Factor Authentication setup would be implemented here');
-        });
-
-        // Logout All Sessions
-        document.getElementById('logout-all-btn').addEventListener('click', () => {
-            if (confirm('Are you sure you want to logout from all devices?')) {
-                alert('Logged out from all devices');
-            }
-        });
-
-        // Export Settings
-        document.getElementById('export-settings-btn').addEventListener('click', () => {
+        // Save All Settings
+        document.getElementById('save-all-btn').addEventListener('click', () => {
+            // Collect all settings
             const settings = {
                 editor: {
                     defaultLanguage: document.getElementById('default-language').value,
+                    tabSize: document.querySelector('.tab-size-btn.active').dataset.size,
                     autoSave: document.getElementById('auto-save').checked,
                     syntaxHighlight: document.getElementById('syntax-highlight').checked,
                     lineNumbers: document.getElementById('line-numbers').checked,
@@ -791,82 +847,214 @@
                     genComplete: document.getElementById('gen-complete-notif').checked,
                     community: document.getElementById('community-notif').checked,
                     weeklyDigest: document.getElementById('weekly-digest').checked
+                },
+                privacy: {
+                    profileVisibility: document.querySelector('.visibility-btn.active').dataset.visibility,
+                    shareMode: document.getElementById('share-mode').value,
+                    usageAnalytics: document.getElementById('usage-analytics').checked,
+                    anonymizedData: document.getElementById('anonymized-data').checked
+                },
+                security: {
+                    twoFactor: document.getElementById('two-factor').checked
                 }
             };
 
-            const blob = new Blob([JSON.stringify(settings, null, 2)], { type: 'application/json' });
+            // Save to localStorage (replace with API call)
+            localStorage.setItem('codebridge-settings', JSON.stringify(settings));
+
+            // Show success toast
+            showToast('Settings saved successfully!');
+        });
+
+        // Reset to Defaults
+        document.getElementById('reset-defaults-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset all settings to defaults?')) {
+                // Reset all form elements
+                document.getElementById('default-language').value = 'javascript';
+                document.querySelectorAll('.tab-size-btn').forEach(b => b.classList.remove('active', 'bg-white/10'));
+                document.querySelector('.tab-size-btn[data-size="2"]').classList.add('active', 'bg-white/10');
+                document.getElementById('detail-level').value = 3;
+                detailLevelValue.textContent = '3 - Balanced';
+
+                // Reset checkboxes to defaults
+                document.getElementById('auto-save').checked = true;
+                document.getElementById('syntax-highlight').checked = true;
+                document.getElementById('line-numbers').checked = true;
+                document.getElementById('word-wrap').checked = false;
+                document.getElementById('include-comments').checked = true;
+                document.getElementById('include-docs').checked = false;
+                document.getElementById('generate-tests').checked = false;
+                document.getElementById('error-handling').checked = true;
+                document.getElementById('type-hints').checked = false;
+                document.getElementById('email-notif').checked = true;
+                document.getElementById('gen-complete-notif').checked = false;
+                document.getElementById('community-notif').checked = true;
+                document.getElementById('weekly-digest').checked = false;
+
+                document.querySelectorAll('.visibility-btn').forEach(b => b.classList.remove('active', 'bg-white/10'));
+                document.querySelector('.visibility-btn[data-visibility="public"]').classList.add('active', 'bg-white/10');
+                document.getElementById('share-mode').value = 'private';
+                document.getElementById('usage-analytics').checked = true;
+                document.getElementById('anonymized-data').checked = false;
+                document.getElementById('two-factor').checked = false;
+
+                showToast('Settings reset to defaults!');
+            }
+        });
+
+        // Change Password Modal
+        const passwordModal = document.getElementById('password-modal');
+        const changePasswordBtn = document.getElementById('change-password-btn');
+        const closePasswordModal = document.getElementById('close-password-modal');
+
+        changePasswordBtn.addEventListener('click', () => {
+            passwordModal.classList.remove('hidden');
+        });
+
+        closePasswordModal.addEventListener('click', () => {
+            passwordModal.classList.add('hidden');
+        });
+
+        passwordModal.addEventListener('click', (e) => {
+            if (e.target === passwordModal) {
+                passwordModal.classList.add('hidden');
+            }
+        });
+
+        // Change Password Form
+        document.getElementById('change-password-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmNewPassword = document.getElementById('confirm-new-password').value;
+
+            if (newPassword !== confirmNewPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+
+            // API call would go here
+            // await fetch('/api/auth/change-password', { ... })
+
+            passwordModal.classList.add('hidden');
+            showToast('Password changed successfully!');
+            document.getElementById('change-password-form').reset();
+        });
+
+        // Export Settings
+        document.getElementById('export-settings-btn').addEventListener('click', () => {
+            const settings = localStorage.getItem('codebridge-settings') || JSON.stringify({});
+            const blob = new Blob([settings], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
             a.download = 'codebridge-settings.json';
             a.click();
-            URL.revokeObjectURL(url);
+            showToast('Settings exported!');
         });
 
         // Import Settings
+        const importFileInput = document.getElementById('import-file-input');
         document.getElementById('import-settings-btn').addEventListener('click', () => {
-            document.getElementById('import-file-input').click();
+            importFileInput.click();
         });
 
-        document.getElementById('import-file-input').addEventListener('change', (e) => {
+        importFileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     try {
                         const settings = JSON.parse(event.target.result);
-                        // Apply imported settings
-                        if (settings.editor) {
-                            document.getElementById('default-language').value = settings.editor.defaultLanguage;
-                            document.getElementById('auto-save').checked = settings.editor.autoSave;
-                            document.getElementById('syntax-highlight').checked = settings.editor.syntaxHighlight;
-                            document.getElementById('line-numbers').checked = settings.editor.lineNumbers;
-                            document.getElementById('word-wrap').checked = settings.editor.wordWrap;
-                        }
-                        showToast();
+                        localStorage.setItem('codebridge-settings', JSON.stringify(settings));
+                        showToast('Settings imported! Reloading...');
+                        setTimeout(() => location.reload(), 1500);
                     } catch (error) {
-                        alert('Invalid settings file');
+                        alert('Invalid settings file!');
                     }
                 };
                 reader.readAsText(file);
             }
         });
-
-        // Export Data
+        // Export All Data
         document.getElementById('export-data-btn').addEventListener('click', () => {
-            alert('Exporting all data as ZIP... This would download all your code history.');
+            // This is a placeholder. Actual implementation would gather user data.
+            const data = {
+                snippets: [],
+                history: [],
+                settings: JSON.parse(localStorage.getItem('codebridge-settings') || '{}')
+            };
+            const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'codebridge-data.json';
+            a.click();
+            showToast('All data exported!');
         });
+        // Logout from all devices
+        document.getElementById('logout-all-btn').addEventListener('click', async () => {
+            if (confirm('Are you sure you want to logout from all devices?')) {
+                // API call would go here
+                // await fetch('/api/auth/logout-all', { ... })
 
-        // Save All Settings
-        document.getElementById('save-all-btn').addEventListener('click', () => {
-            // Collect all settings and save via API
-            showToast();
-        });
-
-        // Reset to Defaults
-        document.getElementById('reset-defaults-btn').addEventListener('click', () => {
-            if (confirm('Are you sure you want to reset all settings to defaults?')) {
-                // Reset logic here
-                showToast();
+                // Clear local storage and redirect to login
+                localStorage.clear();
+                window.location.href = 'login.html';
             }
         });
+        // Load settings on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedSettings = JSON.parse(localStorage.getItem('codebridge-settings') || '{}');
 
-        // Toast Notification
-        function showToast() {
-            const toast = document.getElementById('success-toast');
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
+            // Load Editor Settings
+            if (savedSettings.editor) {
+                document.getElementById('default-language').value = savedSettings.editor.defaultLanguage || 'javascript';
+                const tabSize = savedSettings.editor.tabSize || '2';
+                document.querySelectorAll('.tab-size-btn').forEach(b => b.classList.remove('active', 'bg-white/10'));
+                const tabBtn = document.querySelector(`.tab-size-btn[data-size="${tabSize}"]`);
+                if (tabBtn) tabBtn.classList.add('active', 'bg-white/10');
+                document.getElementById('auto-save').checked = savedSettings.editor.autoSave ?? true;
+                document.getElementById('syntax-highlight').checked = savedSettings.editor.syntaxHighlight ?? true;
+                document.getElementById('line-numbers').checked = savedSettings.editor.lineNumbers ?? true;
+                document.getElementById('word-wrap').checked = savedSettings.editor.wordWrap ?? false;
+            }
 
-        // Logout
-        document.getElementById('logout-btn').addEventListener('click', () => {
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            window.location.href = 'login.html';
+            // Load Generation Settings
+            if (savedSettings.generation) {
+                document.getElementById('detail-level').value = savedSettings.generation.detailLevel || 3;
+                detailLevelValue.textContent = detailLabels[(savedSettings.generation.detailLevel || 3) - 1];
+                document.getElementById('include-comments').checked = savedSettings.generation.includeComments ?? true;
+                document.getElementById('include-docs').checked = savedSettings.generation.includeDocs ?? false;
+                document.getElementById('generate-tests').checked = savedSettings.generation.generateTests ?? false;
+                document.getElementById('error-handling').checked = savedSettings.generation.errorHandling ?? true;
+                document.getElementById('type-hints').checked = savedSettings.generation.typeHints ?? false;
+            }
+
+            // Load Notification Settings
+            if (savedSettings.notifications) {
+                document.getElementById('email-notif').checked = savedSettings.notifications.email ?? true;
+                document.getElementById('gen-complete-notif').checked = savedSettings.notifications.genComplete ?? false;
+                document.getElementById('community-notif').checked = savedSettings.notifications.community ?? true;
+                document.getElementById('weekly-digest').checked = savedSettings.notifications.weeklyDigest ?? false;
+            }
+            // Load Privacy Settings
+            if (savedSettings.privacy) {
+                const visibility = savedSettings.privacy.profileVisibility || 'public';
+                document.querySelectorAll('.visibility-btn').forEach(b => b.classList.remove('active', 'bg-white/10'));
+                const visBtn = document.querySelector(`.visibility-btn[data-visibility="${visibility}"]`);
+                if (visBtn) visBtn.classList.add('active', 'bg-white/10');
+                document.getElementById('share-mode').value = savedSettings.privacy.shareMode || 'private';
+                document.getElementById('usage-analytics').checked = savedSettings.privacy.usageAnalytics ?? true;
+                document.getElementById('anonymized-data').checked = savedSettings.privacy.anonymizedData ?? false;
+            }
+            // Load Security Settings
+            if (savedSettings.security) {
+                document.getElementById('two-factor').checked = savedSettings.security.twoFactor ?? false;
+            }
         });
-
+        // Redirect to login if not authenticated
+        // Auth Guard
         // if (!localStorage.getItem('token')) {
         //     window.location.href = 'login.html';
         // }
