@@ -14,16 +14,26 @@
         body {
             font-family: "Inter", sans-serif;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
     </style>
 </head>
 
 <body class="bg-[#0d1117] text-white">
 
     <!-- Navbar -->
-    <header class="bg-[#0d1117]/90 backdrop-blur-md border-b border-[#30363d]">
+    <header class="fixed top-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-sm border-b border-[#30363d] z-50">
         <nav class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
-
                 <!-- Logo -->
                 <div class="flex items-center space-x-2">
                     <img src="../assets/images/logo.png" alt="CodeBridge Logo" class="w-8 h-8">
@@ -32,14 +42,16 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-6 text-sm font-medium">
-                    <a href="../index.html" target="_blank" class="text-gray-300 hover:text-white">Home</a>
-                    <a href="tos.html" target="_blank" class="text-gray-300 hover:text-white">Terms of Service</a>
-                    <a href="privacy.html" target="_blank" class="text-gray-300 hover:text-white">Privacy Policy</a>
+                    <a href="../index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                    <a href="./about.html" class="text-gray-300 hover:text-white transition">About</a>
+                    <a href="./docs.html" class="text-gray-300 hover:text-white transition">Documentation</a>
+                    <a href="./tos.html" class="text-white font-medium">Terms of Service</a>
+                    <a href="./privacy.html" class="text-gray-300 hover:text-white transition">Privacy Policy</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden text-white">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -49,152 +61,360 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
                 <div class="flex flex-col space-y-3 text-sm font-medium">
-                    <a href="../index.html" target="_blank" class="text-gray-300 hover:text-white">Home</a>
-                    <a href="tos.html" target="_blank" class="text-gray-300 hover:text-white">Terms of Service</a>
-                    <a href="privacy.html" target="_blank" class="text-gray-300 hover:text-white">Privacy Policy</a>
+                    <a href="../index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                    <a href="./about.html" class="text-gray-300 hover:text-white transition">About</a>
+                    <a href="./docs.html" class="text-gray-300 hover:text-white transition">Documentation</a>
+                    <a href="./tos.html" class="text-white font-medium">Terms of Service</a>
+                    <a href="./privacy.html" class="text-gray-300 hover:text-white transition">Privacy Policy</a>
                 </div>
             </div>
         </nav>
     </header>
 
-
-
     <!-- Main Content -->
-    <section class="container mx-auto px-4 py-14 max-w-4xl">
+    <section class="pt-28 pb-20 px-4">
+        <div class="container mx-auto max-w-5xl">
 
-        <!-- Centered heading in mobile -->
-        <h1 class="text-4xl font-bold mb-6 text-center md:text-left">
-            Terms of Service
-        </h1>
+            <!-- Header -->
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">
+                    Terms of <span class="gradient-text">Service</span>
+                </h1>
+                <p class="text-gray-400 text-sm">
+                    Last Updated: November 28, 2025
+                </p>
+            </div>
 
-        <p class="text-gray-400 leading-relaxed mb-6">
-            Welcome to CodeBridge. By accessing or using our platform, you agree to follow all rules and conditions
-            mentioned below. These terms define proper usage, limitations, responsibilities, and your rights as a
-            CodeBridge user.
-        </p>
+            <!-- Introduction -->
+            <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d] mb-8">
+                <p class="text-gray-400 leading-relaxed">
+                    Welcome to CodeBridge. By accessing or using our platform, you agree to follow all rules and
+                    conditions mentioned below. These terms define proper usage, limitations, responsibilities, and your
+                    rights as a CodeBridge user.
+                </p>
+            </div>
 
-        <!-- Added More Sections -->
-        <h2 class="text-2xl font-semibold mt-8 mb-4">1. Acceptance of Terms</h2>
-        <p class="text-gray-400 mb-4">
-            By creating an account or using our services, you accept these Terms of Service and agree to comply with all
-            policies linked here.
-        </p>
+            <!-- Terms Sections -->
+            <div class="space-y-8">
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">2. Licensing & Ownership</h2>
-        <p class="text-gray-400 mb-4">
-            CodeBridge grants you a limited, non-transferable license to use the platform. All branding, UI, and
-            platform logic remain the intellectual property of CodeBridge.
-        </p>
+                <!-- Section 1 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">1.</span>
+                        Acceptance of Terms
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        By creating an account or using our services, you accept these Terms of Service and agree to
+                        comply with all policies linked here. If you do not agree, please discontinue use immediately.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">3. User Responsibilities</h2>
-        <ul class="text-gray-400 list-disc pl-6 space-y-2 mb-4">
-            <li>Provide accurate registration details.</li>
-            <li>Maintain confidentiality of your account and password.</li>
-            <li>Use the platform ethically and legally.</li>
-        </ul>
+                <!-- Section 2 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">2.</span>
+                        Licensing & Ownership
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-3">
+                        CodeBridge grants you a limited, non-exclusive, non-transferable license to use the platform
+                        for personal or commercial purposes.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        All branding, UI design, logos, and platform architecture remain the intellectual property of
+                        CodeBridge and its developers.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">4. Prohibited Activities</h2>
-        <ul class="text-gray-400 list-disc pl-6 space-y-2 mb-4">
-            <li>Reverse engineering or hacking the platform.</li>
-            <li>Using AI-generated code for harmful or illegal activities.</li>
-            <li>Attempting unauthorized access to servers or other users' outputs.</li>
-        </ul>
+                <!-- Section 3 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">3.</span>
+                        User Responsibilities
+                    </h2>
+                    <ul class="text-gray-400 space-y-2 pl-6">
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">•</span>
+                            Provide accurate and truthful registration information
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">•</span>
+                            Maintain confidentiality of your account credentials
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">•</span>
+                            Use the platform ethically, legally, and responsibly
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-400 mr-2">•</span>
+                            Report security vulnerabilities or bugs to our team
+                        </li>
+                    </ul>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">5. AI-Generated Code Usage</h2>
-        <p class="text-gray-400 mb-4">
-            Code generated through Kiro or any integrated engine is provided "as-is". You are responsible for verifying
-            and reviewing it before use in production.
-        </p>
+                <!-- Section 4 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">4.</span>
+                        Prohibited Activities
+                    </h2>
+                    <p class="text-gray-400 mb-3">You agree NOT to:</p>
+                    <ul class="text-gray-400 space-y-2 pl-6">
+                        <li class="flex items-start">
+                            <span class="text-red-400 mr-2">✗</span>
+                            Reverse engineer, decompile, or hack the platform
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-400 mr-2">✗</span>
+                            Use AI-generated code for illegal, harmful, or malicious purposes
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-400 mr-2">✗</span>
+                            Attempt unauthorized access to servers, databases, or other users' data
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-400 mr-2">✗</span>
+                            Distribute malware, spam, or engage in fraudulent activities
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-400 mr-2">✗</span>
+                            Violate any applicable laws or regulations while using CodeBridge
+                        </li>
+                    </ul>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">6. Data & Privacy</h2>
-        <p class="text-gray-400 mb-4">
-            We collect minimal user data and never sell or trade your information. Learn more in our <a
-                href="privacy.html" target="_blank" class="text-blue-400 hover:underline">Privacy Policy</a>.
-        </p>
+                <!-- Section 5 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">5.</span>
+                        AI-Generated Code Usage
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-3">
+                        Code generated through Kiro AI or any integrated engine is provided <span
+                            class="text-white font-semibold">"as-is"</span> without warranties of accuracy,
+                        completeness, or fitness for any purpose.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        You are solely responsible for reviewing, testing, and validating all generated code before
+                        deploying it in production environments. CodeBridge is not liable for bugs, errors, security
+                        vulnerabilities, or damages arising from AI-generated code.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">7. Termination of Access</h2>
-        <p class="text-gray-400 mb-4">
-            We may suspend or delete accounts violating our policies, engaging in illegal actions, or abusing our
-            services.
-        </p>
+                <!-- Section 6 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">6.</span>
+                        Data & Privacy
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        We collect minimal user data necessary to operate the platform. We <span
+                            class="text-white font-semibold">never sell or trade</span> your personal information. For
+                        detailed information, please review our <a href="./privacy.html"
+                            class="text-blue-400 hover:underline">Privacy Policy</a>.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">8. Limitation of Liability</h2>
-        <p class="text-gray-400 mb-4">
-            CodeBridge is not liable for direct or indirect damages caused by using AI-generated code or platform
-            services.
-        </p>
+                <!-- Section 7 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">7.</span>
+                        Termination of Access
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        We reserve the right to suspend, restrict, or permanently delete accounts that violate our
+                        policies, engage in illegal activities, abuse our services, or pose security risks. Account
+                        termination may occur with or without prior notice.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">9. Contact Information</h2>
-        <p class="text-gray-400 mb-4">
-            For questions or support, contact us at:
-            <br>
-            <span class="text-white font-semibold">support@codebridge.ai</span>
-        </p>
+                <!-- Section 8 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">8.</span>
+                        Limitation of Liability
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-3">
+                        CodeBridge and its developers are <span class="text-white font-semibold">not liable</span> for
+                        any direct, indirect, incidental, special, consequential, or exemplary damages arising from:
+                    </p>
+                    <ul class="text-gray-400 space-y-2 pl-6">
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Use or inability to use the platform
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Errors, bugs, or security vulnerabilities in AI-generated code
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Data loss, service interruptions, or downtime
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Actions of third-party services integrated with CodeBridge
+                        </li>
+                    </ul>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">10. Service Availability</h2>
-        <p class="text-gray-400 mb-4">
-            CodeBridge aims to provide uninterrupted access, but we do not guarantee the platform will always be
-            available.
-            Maintenance, updates, server outages, or external providers may temporarily affect service uptime.
-        </p>
+                <!-- Section 9 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">9.</span>
+                        Service Availability
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        We strive to provide uninterrupted access but do not guarantee the platform will always be
+                        available. Maintenance, updates, server outages, or issues with external providers (Kiro AI,
+                        hosting services) may temporarily affect uptime.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">11. Changes to the Platform</h2>
-        <p class="text-gray-400 mb-4">
-            We reserve the right to update, modify, or discontinue any feature or service without prior notice.
-            Continued usage of the platform after changes implies your acceptance.
-        </p>
+                <!-- Section 10 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">10.</span>
+                        Changes to Platform & Features
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        We reserve the right to update, modify, add, or discontinue any feature, service, or
+                        functionality without prior notice. Continued use after changes implies your acceptance of the
+                        updated platform.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">12. Content Ownership & Rights</h2>
-        <p class="text-gray-400 mb-4">
-            All prompts, uploaded files, or code provided by the user remain your intellectual property.
-            AI-generated output may include open-source or publicly learned patterns; it is your responsibility to
-            verify usage rights.
-        </p>
+                <!-- Section 11 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">11.</span>
+                        Content Ownership & Rights
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-3">
+                        All prompts, uploaded files, and user-provided content remain <span
+                            class="text-white font-semibold">your intellectual property</span>.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        AI-generated output may include patterns learned from open-source code, public repositories, or
+                        training data. It is your responsibility to verify licensing and usage rights before deploying
+                        generated code.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">13. Third-Party Integrations</h2>
-        <p class="text-gray-400 mb-4">
-            CodeBridge may integrate with third-party services such as GitHub, Google Login, and Kiro AI.
-            We are not responsible for issues, failures, or outages caused by third-party vendors.
-        </p>
+                <!-- Section 12 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">12.</span>
+                        Third-Party Integrations
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        CodeBridge integrates with third-party services including Google Login, GitHub, LinkedIn, and
+                        Kiro AI. We are not responsible for issues, failures, outages, data breaches, or policy changes
+                        by these external providers.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">14. Security Practices</h2>
-        <p class="text-gray-400 mb-4">
-            Although we implement modern security standards, no platform can guarantee complete protection against
-            breaches.
-            Users must follow security best practices and avoid sharing confidential data unnecessarily.
-        </p>
+                <!-- Section 13 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">13.</span>
+                        Security Practices
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        While we implement industry-standard security measures (JWT authentication, encrypted
+                        connections, secure storage), no platform can guarantee absolute protection against breaches.
+                        Users must follow security best practices and avoid sharing sensitive or confidential data
+                        unnecessarily.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">15. Payment & Premium Features</h2>
-        <p class="text-gray-400 mb-4">
-            If CodeBridge offers paid or premium services in the future, additional billing terms will apply.
-            All fees, if applicable, will be non-refundable unless stated otherwise.
-        </p>
+                <!-- Section 14 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">14.</span>
+                        Payment & Premium Features
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        CodeBridge is currently <span class="text-white font-semibold">free to use</span>. If we
+                        introduce paid or premium features in the future, additional billing terms will apply. All fees,
+                        if applicable, will be non-refundable unless stated otherwise.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">16. Governing Law</h2>
-        <p class="text-gray-400 mb-4">
-            These Terms of Service are governed by and interpreted according to applicable national and international
-            laws.
-            Any disputes must be resolved under the jurisdiction defined by CodeBridge.
-        </p>
+                <!-- Section 15 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">15.</span>
+                        Governing Law & Dispute Resolution
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        These Terms of Service are governed by applicable laws. Any disputes must be resolved through
+                        binding arbitration or in courts with proper jurisdiction as defined by CodeBridge.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">17. Disclaimer of Warranties</h2>
-        <p class="text-gray-400 mb-4">
-            The service is provided “as-is” without any warranty of accuracy, reliability, or completeness.
-            We do not guarantee error-free or perfect code generation.
-        </p>
+                <!-- Section 16 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">16.</span>
+                        Disclaimer of Warranties
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        The service is provided <span class="text-white font-semibold">"AS IS"</span> and <span
+                            class="text-white font-semibold">"AS AVAILABLE"</span> without any warranty of accuracy,
+                        reliability, completeness, or fitness for a particular purpose. We do not guarantee error-free
+                        or perfect code generation.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">18. Acceptance of Updates</h2>
-        <p class="text-gray-400 mb-4">
-            By continuing to use CodeBridge, you automatically agree to any updated version of these Terms of Service.
-            You are responsible for reviewing this page periodically.
-        </p>
+                <!-- Section 17 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">17.</span>
+                        Updates to Terms of Service
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        We may update these Terms of Service at any time. By continuing to use CodeBridge after
+                        updates, you automatically agree to the revised terms. You are responsible for reviewing this
+                        page periodically.
+                    </p>
+                </div>
 
-        <!-- Back Button (white text only) -->
-        <div class="mt-10 text-center md:text-left">
-            <a href="../signup.html"
-                class="text-white text-lg font-medium transition duration-200 hover:text-gray-300 flex justify-center md:justify-start">
-                ← Back to Signup
-            </a>
+                <!-- Section 18 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-blue-400 mr-3">18.</span>
+                        Contact Information
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-3">
+                        For questions, concerns, or support regarding these Terms of Service, contact us at:
+                    </p>
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                        <p class="text-white font-semibold flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5 text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25H4.5A2.25 2.25 0 0 1 2.25 17.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5H4.5A2.25 2.25 0 0 0 2.25 6.75m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-6.75 3.857a2.25 2.25 0 0 1-2.16 0L4.5 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg>
+                            supportcodebridge@example.com
+                        </p>
+                        <p class="text-gray-400 text-sm mt-1">We typically respond within 24–48 hours.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Back Navigation -->
+            <div class="mt-12 flex justify-center">
+                <a href="../signup.html"
+                    class="inline-flex items-center px-6 py-3 bg-white text-[#0d1117] rounded-lg font-semibold hover:bg-gray-200 transition">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Back to Signup
+                </a>
+            </div>
+
         </div>
     </section>
 
