@@ -14,16 +14,26 @@
         body {
             font-family: "Inter", sans-serif;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, #e5e5e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
     </style>
 </head>
 
 <body class="bg-[#0d1117] text-white">
 
     <!-- Navbar -->
-    <header class="bg-[#0d1117]/90 backdrop-blur-md border-b border-[#30363d]">
+    <header class="fixed top-0 left-0 right-0 bg-[#0d1117]/95 backdrop-blur-sm border-b border-[#30363d] z-50">
         <nav class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
-
                 <!-- Logo -->
                 <div class="flex items-center space-x-2">
                     <img src="../assets/images/logo.png" alt="CodeBridge Logo" class="w-8 h-8">
@@ -32,14 +42,16 @@
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-6 text-sm font-medium">
-                    <a href="../index.html" target="_blank" class="text-gray-300 hover:text-white">Home</a>
-                    <a href="tos.html" target="_blank" class="text-gray-300 hover:text-white">Terms of Service</a>
-                    <a href="privacy.html" target="_blank" class="text-gray-300 hover:text-white">Privacy Policy</a>
+                    <a href="../index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                    <a href="./about.html" class="text-gray-300 hover:text-white transition">About</a>
+                    <a href="./docs.html" class="text-gray-300 hover:text-white transition">Documentation</a>
+                    <a href="./tos.html" class="text-gray-300 hover:text-white transition">Terms of Service</a>
+                    <a href="./privacy.html" class="text-white font-medium">Privacy Policy</a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden text-white">
-                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -49,114 +61,409 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
                 <div class="flex flex-col space-y-3 text-sm font-medium">
-                    <a href="../index.html" target="_blank" class="text-gray-300 hover:text-white">Home</a>
-                    <a href="tos.html" target="_blank" class="text-gray-300 hover:text-white">Terms of Service</a>
-                    <a href="privacy.html" target="_blank" class="text-gray-300 hover:text-white">Privacy Policy</a>
+                    <a href="../index.html" class="text-gray-300 hover:text-white transition">Home</a>
+                    <a href="./about.html" class="text-gray-300 hover:text-white transition">About</a>
+                    <a href="./docs.html" class="text-gray-300 hover:text-white transition">Documentation</a>
+                    <a href="./tos.html" class="text-gray-300 hover:text-white transition">Terms of Service</a>
+                    <a href="./privacy.html" class="text-white font-medium">Privacy Policy</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <section class="container mx-auto px-4 py-14 max-w-4xl">
+    <!-- Main Content -->
+    <section class="pt-28 pb-20 px-4">
+        <div class="container mx-auto max-w-5xl">
 
-        <!-- Heading -->
-        <h1 class="text-4xl font-bold mb-6 text-center md:text-left">
-            Privacy Policy
-        </h1>
+            <!-- Header -->
+            <div class="text-center mb-10">
+                <h1 class="text-4xl md:text-4xl font-bold mb-4">
+                    Privacy <span class="gradient-text">Policy</span>
+                </h1>
+                <p class="text-gray-400 text-sm">
+                    Last Updated: November 28, 2025
+                </p>
+            </div>
 
-        <p class="text-gray-400 leading-relaxed mb-6">
-            This Privacy Policy explains how CodeBridge collects, uses, stores, and protects your information.
-            By using our platform, you consent to the practices described in this document.
-        </p>
+            <!-- Introduction -->
+            <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d] mb-8">
+                <p class="text-gray-400 leading-relaxed">
+                    This Privacy Policy explains how CodeBridge collects, uses, stores, shares, and protects your
+                    personal information. By using our platform, you consent to the practices described in this
+                    document. We are committed to transparency and protecting your privacy.
+                </p>
+            </div>
 
-        <!-- Sections -->
-        <h2 class="text-2xl font-semibold mt-8 mb-4">1. Information We Collect</h2>
-        <p class="text-gray-400 mb-4">
-            We collect basic information to provide and improve CodeBridge services. This may include:
-        </p>
-        <ul class="text-gray-400 list-disc pl-6 space-y-2 mb-4">
-            <li>Name, email, and login details</li>
-            <li>Prompts and uploaded files used for code generation</li>
-            <li>Generated output logs and history</li>
-            <li>Device, browser, and usage analytics</li>
-        </ul>
+            <!-- Privacy Sections -->
+            <div class="space-y-8">
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">2. How We Use Your Information</h2>
-        <ul class="text-gray-400 list-disc pl-6 space-y-2 mb-4">
-            <li>To authenticate your account</li>
-            <li>To generate code using Kiro AI</li>
-            <li>To personalize and improve the user experience</li>
-            <li>To send security alerts, updates, or notifications</li>
-            <li>To prevent fraud and maintain platform safety</li>
-        </ul>
+                <!-- Section 1 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">1.</span>
+                        Information We Collect
+                    </h2>
+                    <p class="text-gray-400 mb-4 leading-relaxed">
+                        We collect the minimum information necessary to provide, improve, and secure CodeBridge
+                        services. This includes:
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <span class="text-green-400 mr-3 mt-1">•</span>
+                            <div>
+                                <span class="text-white font-medium">Account Information:</span>
+                                <span class="text-gray-400"> Name, email address, password (encrypted), profile
+                                    picture</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-green-400 mr-3 mt-1">•</span>
+                            <div>
+                                <span class="text-white font-medium">Generation Data:</span>
+                                <span class="text-gray-400"> Natural language prompts, uploaded files, AI-generated
+                                    code outputs</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-green-400 mr-3 mt-1">•</span>
+                            <div>
+                                <span class="text-white font-medium">Usage Data:</span>
+                                <span class="text-gray-400"> Browser type, device information, IP address, pages
+                                    visited, timestamps</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-green-400 mr-3 mt-1">•</span>
+                            <div>
+                                <span class="text-white font-medium">Analytics:</span>
+                                <span class="text-gray-400"> Feature usage patterns, error logs, performance
+                                    metrics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">3. Storage & Data Protection</h2>
-        <p class="text-gray-400 mb-4">
-            Your data is stored securely using industry-level encryption and modern backend practices.
-            While we follow strict security standards, no system is completely immune to risks.
-        </p>
+                <!-- Section 2 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">2.</span>
+                        How We Use Your Information
+                    </h2>
+                    <p class="text-gray-400 mb-4">Your information is used to:</p>
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <span class="text-blue-400 mr-3 mt-1">✓</span>
+                            <span class="text-gray-400">Authenticate and manage your account securely</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-400 mr-3 mt-1">✓</span>
+                            <span class="text-gray-400">Generate AI-powered code through Kiro integration</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-400 mr-3 mt-1">✓</span>
+                            <span class="text-gray-400">Personalize your experience and improve platform
+                                features</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-400 mr-3 mt-1">✓</span>
+                            <span class="text-gray-400">Send security alerts, important updates, and
+                                notifications</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-400 mr-3 mt-1">✓</span>
+                            <span class="text-gray-400">Prevent fraud, abuse, and maintain platform safety</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-400 mr-3 mt-1">✓</span>
+                            <span class="text-gray-400">Analyze usage patterns to enhance performance and user
+                                experience</span>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-blue-400 mr-3 mt-1">✓</span>
+                            <span class="text-gray-400">Comply with legal obligations and enforce our Terms of
+                                Service</span>
+                        </div>
+                    </div>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">4. Sharing of Information</h2>
-        <p class="text-gray-400 mb-4">
-            CodeBridge does <span class="text-white font-semibold">not sell or trade</span> your personal information.
-            We may share limited data with:
-        </p>
-        <ul class="text-gray-400 list-disc pl-6 space-y-2 mb-4">
-            <li>Third-party authentication services (Google, GitHub, LinkedIn)</li>
-            <li>Kiro AI for code generation</li>
-            <li>Service providers for analytics or hosting</li>
-        </ul>
+                <!-- Section 3 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">3.</span>
+                        Data Storage & Protection
+                    </h2>
+                    <p class="text-gray-400 mb-4 leading-relaxed">
+                        Your data is stored securely using industry-standard encryption and modern backend security
+                        practices:
+                    </p>
+                    <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d] space-y-2">
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> Passwords are encrypted using secure hashing algorithms
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> JWT tokens for secure authentication
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> HTTPS/TLS encryption for data transmission
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> Regular security audits and vulnerability assessments
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> Access controls and monitoring for database security
+                        </p>
+                    </div>
+                    <p class="text-gray-400 mt-4 leading-relaxed">
+                        While we implement rigorous security measures, no system is completely immune to risks. We
+                        recommend users follow security best practices like using strong passwords and enabling
+                        two-factor authentication.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">5. AI Usage & Privacy</h2>
-        <p class="text-gray-400 mb-4">
-            Prompts and files sent for generation are processed securely.
-            AI-generated code may include patterns learned from public sources — review carefully before using in
-            production.
-        </p>
+                <!-- Section 4 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">4.</span>
+                        Sharing of Information
+                    </h2>
+                    <div class="bg-green-500/10 border border-green-500/30 p-4 rounded-lg mb-4">
+                        <p class="text-green-400 font-semibold">
+                            CodeBridge does <span class="underline">NOT sell or trade</span> your personal information
+                            to third parties.
+                        </p>
+                    </div>
+                    <p class="text-gray-400 mb-4">We may share limited data with:</p>
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <span class="text-orange-400 mr-3 mt-1">→</span>
+                            <div>
+                                <span class="text-white font-medium">Authentication Services:</span>
+                                <span class="text-gray-400"> Google, GitHub, LinkedIn for social login</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-orange-400 mr-3 mt-1">→</span>
+                            <div>
+                                <span class="text-white font-medium">AI Service Providers:</span>
+                                <span class="text-gray-400"> Kiro AI for code generation (prompts and files)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-orange-400 mr-3 mt-1">→</span>
+                            <div>
+                                <span class="text-white font-medium">Analytics & Hosting:</span>
+                                <span class="text-gray-400"> Service providers for performance monitoring and
+                                    infrastructure</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="text-orange-400 mr-3 mt-1">→</span>
+                            <div>
+                                <span class="text-white font-medium">Legal Requirements:</span>
+                                <span class="text-gray-400"> When required by law, court order, or government
+                                    request</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">6. Cookies & Tracking</h2>
-        <p class="text-gray-400 mb-4">
-            CodeBridge uses minimal cookies for session management, authentication, and improving functionality.
-        </p>
+                <!-- Section 5 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">5.</span>
+                        AI Usage & Privacy
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-4">
+                        Prompts and files submitted for code generation are processed securely through Kiro AI.
+                        Generated code may include patterns learned from publicly available sources, documentation, and
+                        open-source repositories.
+                    </p>
+                    <div class="bg-yellow-500/10 border border-yellow-500/30 p-4 rounded-lg">
+                        <p class="text-yellow-400 text-sm">
+                            ⚠️ <span class="font-semibold">Important:</span> Review all AI-generated code carefully
+                            before using it in production environments. Ensure compliance with licensing requirements
+                            and security standards.
+                        </p>
+                    </div>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">7. Your Rights</h2>
-        <ul class="text-gray-400 list-disc pl-6 space-y-2 mb-4">
-            <li>Right to access your data</li>
-            <li>Right to request deletion</li>
-            <li>Right to update or correct information</li>
-            <li>Right to disable notifications</li>
-        </ul>
+                <!-- Section 6 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">6.</span>
+                        Cookies & Tracking Technologies
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-4">
+                        CodeBridge uses minimal cookies and similar technologies for:
+                    </p>
+                    <div class="space-y-2">
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> Session management and authentication (JWT tokens stored
+                            in localStorage)
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> Remembering user preferences and settings
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> Understanding usage patterns and improving functionality
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <span class="text-white">•</span> Analytics to enhance platform performance
+                        </p>
+                    </div>
+                    <p class="text-gray-400 mt-4 text-sm">
+                        You can manage cookie preferences through your browser settings. Note that disabling certain
+                        cookies may affect platform functionality.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">8. Third-Party Links</h2>
-        <p class="text-gray-400 mb-4">
-            Our platform may contain links to external websites.
-            We are not responsible for the privacy practices or security of third-party services.
-        </p>
+                <!-- Section 7 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">7.</span>
+                        Your Privacy Rights
+                    </h2>
+                    <p class="text-gray-400 mb-4">You have the right to:</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                            <p class="text-white font-medium mb-2">✓ Access Your Data</p>
+                            <p class="text-gray-400 text-sm">Request a copy of all personal information we hold about
+                                you</p>
+                        </div>
+                        <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                            <p class="text-white font-medium mb-2">✓ Correct Information</p>
+                            <p class="text-gray-400 text-sm">Update or correct inaccurate personal data</p>
+                        </div>
+                        <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                            <p class="text-white font-medium mb-2">✓ Delete Your Account</p>
+                            <p class="text-gray-400 text-sm">Request permanent deletion of your account and data</p>
+                        </div>
+                        <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                            <p class="text-white font-medium mb-2">✓ Export Your Data</p>
+                            <p class="text-gray-400 text-sm">Download your code history and prompts</p>
+                        </div>
+                        <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                            <p class="text-white font-medium mb-2">✓ Opt-Out of Communications</p>
+                            <p class="text-gray-400 text-sm">Disable non-essential email notifications</p>
+                        </div>
+                        <div class="bg-[#0d1117] p-4 rounded-lg border border-[#30363d]">
+                            <p class="text-white font-medium mb-2">✓ Data Portability</p>
+                            <p class="text-gray-400 text-sm">Transfer your data to another service</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-4">
+                        To exercise these rights, contact us at <span
+                            class="text-white font-semibold">privacy@codebridge.ai</span>
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">9. Children’s Privacy</h2>
-        <p class="text-gray-400 mb-4">
-            CodeBridge is not intended for individuals under the age of 13.
-        </p>
+                <!-- Section 8 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">8.</span>
+                        Third-Party Links & Services
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        CodeBridge may contain links to external websites, services, or resources. We are <span
+                            class="text-white font-semibold">not responsible</span> for the privacy practices, content,
+                        or security of third-party services. Please review their privacy policies before sharing
+                        information.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">10. Changes to This Policy</h2>
-        <p class="text-gray-400 mb-4">
-            We may update this Privacy Policy over time.
-            Continuing to use CodeBridge means you accept the updated version.
-        </p>
+                <!-- Section 9 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">9.</span>
+                        Children's Privacy
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        CodeBridge is not intended for individuals under the age of <span
+                            class="text-white font-semibold">13 years old</span>. We do not knowingly collect personal
+                        information from children. If we become aware that a child has provided us with personal data,
+                        we will delete it immediately.
+                    </p>
+                </div>
 
-        <h2 class="text-2xl font-semibold mt-8 mb-4">11. Contact Us</h2>
-        <p class="text-gray-400 mb-4">
-            For questions, concerns, or support, contact:<br>
-            <span class="text-white font-semibold">privacy@codebridge.ai</span>
-        </p>
+                <!-- Section 10 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">10.</span>
+                        Data Retention
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        We retain your personal information only as long as necessary to provide services, comply with
+                        legal obligations, resolve disputes, and enforce our agreements. When you delete your account,
+                        we remove personal data within 30 days, except where retention is required by law.
+                    </p>
+                </div>
 
-        <!-- Back Button -->
-        <div class="mt-10 text-center md:text-left">
-            <a href="../signup.html"
-                class="text-white text-lg font-medium transition duration-200 hover:text-gray-300 flex justify-center md:justify-start">
-                ← Back to Signup
-            </a>
+                <!-- Section 11 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">11.</span>
+                        International Data Transfers
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        Your information may be transferred to, stored, and processed in countries where our servers or
+                        service providers are located. We ensure adequate safeguards are in place to protect your data
+                        in accordance with this Privacy Policy.
+                    </p>
+                </div>
+
+                <!-- Section 12 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">12.</span>
+                        Changes to This Privacy Policy
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        We may update this Privacy Policy from time to time to reflect changes in our practices or
+                        legal requirements. We will notify users of significant changes via email or platform
+                        notifications. Continued use of CodeBridge after updates constitutes acceptance of the revised
+                        policy.
+                    </p>
+                </div>
+
+                <!-- Section 13 -->
+                <div class="bg-[#161b22] p-6 rounded-xl border border-[#30363d]">
+                    <h2 class="text-2xl font-semibold mb-4 text-white flex items-center">
+                        <span class="text-purple-400 mr-3">13.</span>
+                        Contact Us
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed mb-4">
+                        For questions, concerns, or requests regarding your privacy or this Privacy Policy, please
+                        contact us:
+                    </p>
+                    <div class="bg-[#0d1117] p-6 rounded-lg border border-[#30363d]">
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 mr-3 text-blue-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span class="text-white font-semibold">supportcodebridge@example.com</span>
+                            </div>
+                            <p class="text-gray-400 text-sm ml-8">We typically respond within 24-48 hours</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Back Navigation -->
+            <div class="mt-12 flex justify-center">
+                <a href="../signup.html"
+                    class="inline-flex items-center px-6 py-3 bg-white text-[#0d1117] rounded-lg font-semibold hover:bg-gray-200 transition">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Back to Signup
+                </a>
+            </div>
+
         </div>
     </section>
 
@@ -166,7 +473,6 @@
             document.getElementById("mobile-menu").classList.toggle("hidden");
         });
     </script>
-
 </body>
 
 </html>

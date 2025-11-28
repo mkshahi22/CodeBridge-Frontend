@@ -214,7 +214,7 @@
             conversationContext.push(msg);
 
             // Keep only last 5 messages for context
-            if (conversationContext.length > 5) {
+            if (conversationContext.length > 15) {
                 conversationContext.shift();
             }
 
@@ -320,9 +320,7 @@
             messageDiv.className = `ghost-chat-message ${isUser ? 'user' : 'bot'}`;
 
             const avatarContent = isUser
-                ? `<svg class="user-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                   </svg>`
+                ? `<img src="../assets/images/boy.png" alt="User">`
                 : `<img src="../assets/images/ghost.png" alt="Bot">`;
 
             messageDiv.innerHTML = `

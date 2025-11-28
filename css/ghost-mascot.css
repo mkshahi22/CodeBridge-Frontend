@@ -260,9 +260,7 @@
 }
 
 .ghost-chat-message .avatar {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
+    width: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -277,9 +275,6 @@
     object-fit: cover;
 }
 
-.ghost-chat-message.user .avatar {
-    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
-}
 
 .ghost-chat-message .message-content {
     max-width: 70%;
@@ -392,13 +387,6 @@
         transform: translateY(-10px);
         opacity: 1;
     }
-}
-
-/* User Icon SVG */
-.user-icon {
-    width: 20px;
-    height: 20px;
-    fill: white;
 }
 
 /* Responsive Styles */
